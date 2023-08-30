@@ -1,9 +1,9 @@
 
-import CapsuleButton from './CapsuleButton';
+import RectangleButton from "./RectangleButton";
 
 export default {
-    title: 'CapsuleButton',
-    component: CapsuleButton,
+    title: 'RectangleButton',
+    component: RectangleButton,
     tags: ['autodocs'],
 };
 

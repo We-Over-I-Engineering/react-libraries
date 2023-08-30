@@ -1,21 +1,21 @@
 
-import CapsuleButton from './CapsuleButton';
+import CircleButton from "./CircleButton";
 
 export default {
-    title: 'CapsuleButton',
-    component: CapsuleButton,
+    title: 'CircleButton',
+    component: CircleButton,
     tags: ['autodocs'],
 };
 
 export const Default = {
     args: {
-        text: 'Submit',
+        text: 'Save',
         textColor: '#ffffff',
         fontSize: 16,
         fontWeight: 400,
         backgroundColor: '#e64178',
-        width: 200,
-        height: 48,
+        width: 68,
+        height: 65,
         hoverTextColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',

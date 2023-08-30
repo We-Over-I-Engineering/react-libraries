@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 
-interface CapsuleButtonProps {
+interface CircleButtonProps {
     text?: string
     textColor?: string
     fontSize?: number
@@ -15,12 +15,12 @@ interface CapsuleButtonProps {
     openLink?: string,
 }
 
-const CapsuleButton = (props: CapsuleButtonProps) => {
+const CircleButton = (props: CircleButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink } = props
 
      // Created styled button widget
-    const CapsuleButtonWidget = styled.button`
+    const CircleButtonWidget = styled.button`
         display: flex;
         justify-content: center;
         font-family: 'Nunito Sans';
@@ -28,7 +28,7 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
         text-align: center;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.12);
         outline: none !important;
-        border-radius: 50px;
+        border-radius: 100%;
         border: none;
         cursor: pointer;
     `;
@@ -46,17 +46,16 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
         fontSize, fontWeight, TextTransform: textTransform
     }
 
-
     return (
-        <CapsuleButtonWidget style={{ ...buttonProperties }}
+        <CircleButtonWidget style={{ ...buttonProperties }}
             onClick={() => window.open(openLink, '_blank')} // click to open web pages
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
         >
             {/* Button Label */}
             <p style={{ ...textProperties }}>{text}</p>
-        </CapsuleButtonWidget>
+        </CircleButtonWidget>
     );
 };
 
-export default CapsuleButton;
+export default CircleButton;
