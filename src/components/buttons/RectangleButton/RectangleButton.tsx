@@ -13,11 +13,12 @@ interface RectangleButtonProps {
     hoverBackgroundColor?: string,
     textTransform?: string,
     openLink?: string,
+    clickFunction?: Function
 }
 
 const RectangleButton = (props: RectangleButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink } = props;
+    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction } = props;
 
     // Created styled button widget
     const RectangleButtonWidget = styled.button`
@@ -48,7 +49,7 @@ const RectangleButton = (props: RectangleButtonProps) => {
 
     return (
         <RectangleButtonWidget style={{ ...buttonProperties }}
-            onClick={() => window.open(openLink, '_blank')} // click to open web pages
+            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
         >

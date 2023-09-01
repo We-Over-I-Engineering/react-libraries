@@ -21,6 +21,12 @@ export const Default = {
         textTransform: 'capitalize',
         loading: 'false',
         loaderColor: '#000000',
-        openLink: 'https://www.wikipedia.org/'
+        openLink: 'https://www.wikipedia.org/',
+        openLinkInNewTab: 'false',
+        prefixIcon: '',
+        suffixIcon: '',
+        isDisabled: false,
+        gradientDirection: '',
+        gradientColors: [],
     },
 };
