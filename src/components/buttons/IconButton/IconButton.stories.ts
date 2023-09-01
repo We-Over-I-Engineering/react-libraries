@@ -1,9 +1,9 @@
 
-import CapsuleButton from './CapsuleButton';
+import IconButton from './IconButton';
 
 export default {
-    title: 'CapsuleButton',
-    component: CapsuleButton,
+    title: 'IconButton',
+    component: IconButton,
     tags: ['autodocs'],
 };
 
@@ -19,14 +19,10 @@ export const Default = {
         hoverTextColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',
-        loading: 'false',
-        loaderColor: '#000000',
         openLink: 'https://www.wikipedia.org/',
-        openLinkInNewTab: 'false',
         prefixIcon: '',
         suffixIcon: '',
         isDisabled: false,
-        gradientDirection: '',
-        gradientColors: [],
+        borderRadius: '50px',
     },
 };

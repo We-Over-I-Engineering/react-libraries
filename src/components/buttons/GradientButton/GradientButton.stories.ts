@@ -1,9 +1,9 @@
 
-import CapsuleButton from './CapsuleButton';
+import GradientButton from './GradientButton';
 
 export default {
-    title: 'CapsuleButton',
-    component: CapsuleButton,
+    title: 'Gradient Button',
+    component: GradientButton,
     tags: ['autodocs'],
 };
 
@@ -13,20 +13,17 @@ export const Default = {
         textColor: '#ffffff',
         fontSize: 16,
         fontWeight: 400,
-        backgroundColor: '#e64178',
         width: 200,
         height: 48,
-        hoverTextColor: '#e64178',
+        hoverTextColor: '#ffffff',
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',
-        loading: 'false',
-        loaderColor: '#000000',
         openLink: 'https://www.wikipedia.org/',
-        openLinkInNewTab: 'false',
         prefixIcon: '',
         suffixIcon: '',
         isDisabled: false,
-        gradientDirection: '',
-        gradientColors: [],
+        gradientDirection: 'right',
+        gradientColors: ['red', 'blue'],
+        borderRadius: '50px',
     },
 };

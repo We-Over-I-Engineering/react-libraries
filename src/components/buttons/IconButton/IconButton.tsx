@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 
-interface RectangleButtonProps {
+interface IconButtonProps {
     text?: string
     textColor?: string
     fontSize?: number
@@ -13,15 +13,19 @@ interface RectangleButtonProps {
     hoverBackgroundColor?: string,
     textTransform?: string,
     openLink?: string,
-    clickFunction?: Function
+    clickFunction?: Function,
+    prefixIcon?: string,
+    suffixIcon?: string,
+    isDisabled?: boolean,
+    borderRadius?: string
 }
 
-const RectangleButton = (props: RectangleButtonProps) => {
+const IconButton = (props: IconButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction } = props;
+    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, isDisabled, borderRadius } = props
 
     // Created styled button widget
-    const RectangleButtonWidget = styled.button`
+    const IconButtonWidget = styled.button`
         display: flex;
         justify-content: center;
         font-family: 'Nunito Sans';
@@ -29,7 +33,7 @@ const RectangleButton = (props: RectangleButtonProps) => {
         text-align: center;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.12);
         outline: none !important;
-        border-radius: 8px;
+        border-radius: 50px;
         border: none;
         cursor: pointer;
     `;
@@ -38,25 +42,44 @@ const RectangleButton = (props: RectangleButtonProps) => {
     var buttonProperties = {
         backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
         TextTransform: textTransform,
-        width, height,
+        width, height, borderRadius,
+    }
+
+    // Disabled Button Properties
+    var disabledButtonProperties = {
+        backgroundColor: '#D9D9D9',
+        TextTransform: textTransform,
+        cursor: 'not-allowed',
+        width, height, borderRadius,
     }
 
     // Label properties
     var textProperties = {
         color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform
+        fontSize, fontWeight, TextTransform: textTransform,
+        paddingLeft: text ? '10px' : '0px',
+        paddingRight: text ? '10px' : '0px',
     }
 
+
     return (
-        <RectangleButtonWidget style={{ ...buttonProperties }}
+        <IconButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
             onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
+            disabled={isDisabled}
         >
+
+            {/* Button Prefix Icon */}
+            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" />}
+
             {/* Button Label */}
             <p style={{ ...textProperties }}>{text}</p>
-        </RectangleButtonWidget>
+
+            {/* Button Suffix Icon */}
+            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" />}
+        </IconButtonWidget>
     );
 };
 
-export default RectangleButton;
+export default IconButton;

@@ -13,13 +13,14 @@ interface CircleButtonProps {
     hoverBackgroundColor?: string,
     textTransform?: string,
     openLink?: string,
+    clickFunction?: Function
 }
 
 const CircleButton = (props: CircleButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink } = props
+    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction } = props
 
-     // Created styled button widget
+    // Created styled button widget
     const CircleButtonWidget = styled.button`
         display: flex;
         justify-content: center;
@@ -48,7 +49,7 @@ const CircleButton = (props: CircleButtonProps) => {
 
     return (
         <CircleButtonWidget style={{ ...buttonProperties }}
-            onClick={() => window.open(openLink, '_blank')} // click to open web pages
+            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
         >

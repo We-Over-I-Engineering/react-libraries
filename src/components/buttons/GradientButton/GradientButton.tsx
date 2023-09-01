@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 
-interface CapsuleButtonProps {
+interface GradientButtonProps {
     text?: string
     textColor?: string
     fontSize?: number
     fontWeight?: number
     width?: number
     height?: number
-    backgroundColor?: string
     hoverTextColor?: string
     hoverBackgroundColor?: string,
     textTransform?: string,
@@ -16,17 +15,18 @@ interface CapsuleButtonProps {
     clickFunction?: Function,
     prefixIcon?: string,
     suffixIcon?: string,
-    gradientDirection?: string,
-    gradientColors?: string[],
+    gradientDirection: string,
+    gradientColors: string[],
     isDisabled?: boolean
+    borderRadius?: string
 }
 
-const CapsuleButton = (props: CapsuleButtonProps) => {
+const GradientButton = (props: GradientButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, isDisabled } = props
+    const { text, textColor, fontSize, fontWeight, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, isDisabled, borderRadius } = props
 
     // Created styled button widget
-    const CapsuleButtonWidget = styled.button`
+    const GradientButtonWidget = styled.button`
         display: flex;
         justify-content: center;
         font-family: 'Nunito Sans';
@@ -41,9 +41,9 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
 
     // Button properties
     var buttonProperties = {
-        backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
+        backgroundColor: onHover ? hoverBackgroundColor : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`,
         TextTransform: textTransform,
-        width, height,
+        width, height, borderRadius,
         backgroundImage: gradientDirection ? `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})` : undefined
     }
 
@@ -52,7 +52,7 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
         backgroundColor: '#D9D9D9',
         TextTransform: textTransform,
         cursor: 'not-allowed',
-        width, height,
+        width, height, borderRadius,
         backgroundImage: 'none'
     }
 
@@ -66,7 +66,7 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
 
 
     return (
-        <CapsuleButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
+        <GradientButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
             onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
@@ -81,8 +81,8 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
 
             {/* Button Suffix Icon */}
             {suffixIcon && <img src={suffixIcon} alt="suffixIcon" />}
-        </CapsuleButtonWidget>
+        </GradientButtonWidget>
     );
 };
 
-export default CapsuleButton;
+export default GradientButton;
