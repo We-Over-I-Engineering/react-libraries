@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import SpinnerSVG from './SpinnerSVG';
 
 interface LoaderButtonProps {
     text?: string
@@ -14,12 +15,13 @@ interface LoaderButtonProps {
     textTransform?: string,
     clickFunction?: Function,
     borderRadius?: string,
-    loading?: boolean
+    loading?: boolean,
+    loadingIcon?: any
 }
 
 const LoaderButton = (props: LoaderButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { loading, text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, borderRadius } = props
+    const { loading, loadingIcon, text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, borderRadius } = props
 
     // Created styled button widget
     const LoaderButtonWidget = styled.button`
@@ -42,15 +44,6 @@ const LoaderButton = (props: LoaderButtonProps) => {
         width, height, borderRadius,
     }
 
-    // Disabled Button Properties
-    var disabledButtonProperties = {
-        backgroundColor: '#D9D9D9',
-        TextTransform: textTransform,
-        cursor: 'not-allowed',
-        width, height, borderRadius,
-        backgroundImage: 'none'
-    }
-
     // Label properties
     var textProperties = {
         color: onHover ? hoverTextColor : textColor,
@@ -70,9 +63,8 @@ const LoaderButton = (props: LoaderButtonProps) => {
                 loading ?
 
                     // loading spinner
-                    <div className="spinner-border text-light" role="status" style={{ display: 'none' }}>
-                        <span className="sr-only">Loading...</span>
-                    </div>
+                    loadingIcon ? loadingIcon :
+                        <SpinnerSVG width='50px' height='50px' />
                     :
                     // button text
                     <p style={{ ...textProperties }}>{text}</p>
