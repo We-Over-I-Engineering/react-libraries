@@ -16,11 +16,12 @@ interface LoaderButtonProps {
     borderRadius?: string,
     loading?: boolean,
     loadingIcon?: any
+    loaderColor?: string
 }
 
 const LoaderButton = (props: LoaderButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { loading, loadingIcon, text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, borderRadius } = props
+    const { loading, loaderColor, text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, borderRadius } = props
 
     // Created styled button widget
     const LoaderButtonWidget = styled.button`
@@ -48,7 +49,7 @@ const LoaderButton = (props: LoaderButtonProps) => {
 
     const SpinnerWidget = styled.div`
     border: 3px solid #f3f3f3;
-    border-top: 3px solid #000000;
+    border-top: 3px solid ${loaderColor || '#000000'};
     border-radius: 50%;
     width: 24px;
     height: 24px;

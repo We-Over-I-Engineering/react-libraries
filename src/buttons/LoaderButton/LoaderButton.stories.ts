@@ -20,7 +20,7 @@ export const Default = {
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',
         loading: true,
-        loaderColor: '#000000',
+        loaderColor: '#e64178',
         openLink: 'https://www.wikipedia.org/',
         openLinkInNewTab: 'false',
         isDisabled: false,
