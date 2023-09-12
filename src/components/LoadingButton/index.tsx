@@ -1,27 +1,16 @@
-import { useState } from 'react';
 import styled, { keyframes } from "styled-components";
 
 interface LoaderButtonProps {
-    text?: string
-    textColor?: string
-    fontSize?: number
-    fontWeight?: number
     width?: number
     height?: number
     backgroundColor?: string
-    hoverTextColor?: string
     hoverBackgroundColor?: string,
-    textTransform?: string,
-    clickFunction?: Function,
     borderRadius?: string,
-    loading?: boolean,
-    loadingIcon?: any
     loaderColor?: string
 }
 
 const LoaderButton = (props: LoaderButtonProps) => {
-    const [onHover, setHoverState] = useState(false);
-    const { loading, loaderColor, text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, borderRadius } = props
+    const { loaderColor, backgroundColor, width, height, borderRadius } = props
 
     // Created styled button widget
     const LoaderButtonWidget = styled.button`
@@ -32,10 +21,9 @@ const LoaderButton = (props: LoaderButtonProps) => {
     text-align: center;
     box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.12);
     outline: none !important;
-    border-radius: 50px;
+    border-radius: ${borderRadius};
     border: none;
     cursor: pointer;
-    text-transform: ${textTransform || 'none'}; // Apply text-transform
   `;
 
     const spinner = keyframes`
@@ -56,31 +44,13 @@ const LoaderButton = (props: LoaderButtonProps) => {
     animation: ${spinner} 0.5s linear infinite;
   `;
 
-
-
     // Button properties
-    var buttonProperties = {
-        backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
-        TextTransform: textTransform || 'none',
-        width, height, borderRadius,
-    }
-
-    // Label properties
-    var textProperties = {
-        color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform || 'none',
-        paddingLeft: '10px',
-        paddingRight: '10px'
-    }
-
+    var buttonProperties = { backgroundColor, width, height, borderRadius }
 
     return (
-        <LoaderButtonWidget style={{ ...buttonProperties }}
-            onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
-            onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
-        >
-            {loading ? <SpinnerWidget /> : <p style={{ ...textProperties }}>{text}</p>}
-        </LoaderButtonWidget >
+        <LoaderButtonWidget style={{ ...buttonProperties }}>
+            <SpinnerWidget />
+        </LoaderButtonWidget>
     );
 };
 

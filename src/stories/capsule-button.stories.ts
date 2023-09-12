@@ -8,7 +8,7 @@ export default {
 
 export const Default = {
     args: {
-        text: 'Submit',
+        text: 'Capsule Button',
         textColor: '#ffffff',
         fontSize: 16,
         fontWeight: 400,
@@ -17,15 +17,11 @@ export const Default = {
         height: 48,
         hoverTextColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
-        textTransform: 'capitalize',
-        loading: 'false',
-        loaderColor: '#000000',
         openLink: 'https://www.wikipedia.org/',
-        openLinkInNewTab: 'false',
+        openLinkInNewTab: false,
         prefixIcon: '',
         suffixIcon: '',
         isDisabled: false,
-        gradientDirection: '',
-        gradientColors: [],
+        textTransform: 'capitalize'
     },
 };

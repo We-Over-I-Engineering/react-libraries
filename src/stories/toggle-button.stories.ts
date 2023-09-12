@@ -8,8 +8,8 @@ export default {
 
 export const Default = {
     args: {
-        isDisabled: false,
-        trueBackgroundColor: '#e64178',
-        falseBackgroundColor: 'gray',
+        isToggled: false,
+        trueBackgroundColor: '#40e1e6',
+        falseBackgroundColor: '#cccccc',
     },
 };

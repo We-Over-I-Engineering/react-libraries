@@ -8,23 +8,22 @@ export default {
 
 export const Default = {
     args: {
-        text: 'Submit',
+        text: 'Parallelogram Button',
         textColor: '#ffffff',
+        hoverTextColor: '#e64178',
         fontSize: 16,
         fontWeight: 400,
-        width: 200,
+        width: 300,
         height: 48,
-        hoverTextColor: '#e64178',
+        backgroundColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',
-        loading: 'false',
-        loaderColor: '#000000',
         openLink: 'https://www.wikipedia.org/',
-        openLinkInNewTab: 'false',
-        prefixIcon: '',
-        suffixIcon: '',
+        openLinkInNewTab: false,
+        prefixIcon: 'https://cdn-icons-png.flaticon.com/512/271/271220.png',
+        suffixIcon: 'https://cdn-icons-png.flaticon.com/512/32/32213.png',
         isDisabled: false,
-        gradientDirection: '',
-        gradientColors: [],
+        skewType: 'left',
+        skew: 20
     },
 };

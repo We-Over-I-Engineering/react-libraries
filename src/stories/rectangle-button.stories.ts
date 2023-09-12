@@ -8,18 +8,18 @@ export default {
 
 export const Default = {
     args: {
-        text: 'Submit',
+        text: 'Rectangle Button',
         textColor: '#ffffff',
+        hoverTextColor: '#e64178',
         fontSize: 16,
         fontWeight: 400,
-        backgroundColor: '#e64178',
         width: 200,
         height: 48,
-        hoverTextColor: '#e64178',
+        backgroundColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
         textTransform: 'capitalize',
-        loading: 'false',
-        loaderColor: '#000000',
-        openLink: 'https://www.wikipedia.org/'
+        openLink: 'https://www.wikipedia.org/',
+        openLinkInNewTab: false,
+        isDisabled: false
     },
 };

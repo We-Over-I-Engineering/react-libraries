@@ -8,21 +8,21 @@ export default {
 
 export const Default = {
     args: {
-        text: 'Submit',
+        text: 'Gradient Button',
         textColor: '#ffffff',
+        hoverTextColor: '#ffffff',
         fontSize: 16,
         fontWeight: 400,
         width: 200,
         height: 48,
-        hoverTextColor: '#ffffff',
-        hoverBackgroundColor: '#ffffff',
+        borderRadius: 50,
         textTransform: 'capitalize',
         openLink: 'https://www.wikipedia.org/',
-        prefixIcon: '',
-        suffixIcon: '',
-        isDisabled: false,
+        openLinkInNewTab: true,
         gradientDirection: 'right',
         gradientColors: ['red', 'blue'],
-        borderRadius: '50px',
+        hoverGradientDirection: 'right',
+        hoverGradientColors: ['blue', 'red'],
+        isDisabled: false,
     },
 };
