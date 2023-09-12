@@ -1,7 +1,8 @@
 {
-  "name": "react-storybook",
-  "version": "0.1.0",
-  "private": true,
+  "name": "woi-react-storybook",
+  "version": "0.1.01",
+  "private": false,
+  "main": "dist/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -23,7 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepublish": "tsc"
   },
   "eslintConfig": {
     "extends": [
