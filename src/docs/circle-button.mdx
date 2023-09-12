@@ -1,25 +1,21 @@
-# Capsule Button Component
+# Circle Button Component
 
-The capsule button component is a reusable React component for creating interactive buttons in your web application.
+The circle button component is a reusable React component for creating interactive buttons in your web application.
 
 ## Props
 
-The Capsule Button component accepts the following props:
+The Circle Button component accepts the following props:
 
 - `text` (string): The content to be displayed inside the button. This is the text that appears on the button.
 - `textColor` (string): The text color of the button's text. You can specify this using a CSS color value, such as a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
 - `fontSize` (number): The text size or font size of the button's text. It determines how large or small the text appears.
 - `fontWeight` (number): The font weight of the button's text. It controls the thickness or boldness of the text characters.
+- `backgroundColor` (string): The background color of the button. You can specify this using a CSS color value, such as a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
 - `width` (number): The width of the button, specified as a numerical value (e.g., pixels) or as a percentage of its container's width.
 - `height` (number): The height of the button, specified as a numerical value (e.g., pixels) or as a percentage of its container's height.
-- `backgroundColor` (string): TThe background color of the button. You can specify this using a CSS color value, such as a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
 - `hoverTextColor` (string): The text color of the button when the mouse pointer hovers over it. This allows you to change the text color on hover.
 - `hoverBackgroundColor` (string): The background color of the button when the mouse pointer hovers over it. This allows you to change the background color on hover.
 - `textTransform` (string): The transformation applied to the button's text, such as "uppercase," "lowercase," or "capitalize." It controls the capitalization of the text.
 - `openLink` (string): A URL or link that the button should navigate to when clicked. This prop is used when the button acts as a link to another page or resource.
-- `clickFunction` (string): A callback function or action that should be executed when the button is clicked. This prop is used to define the behavior of the button when clicked.
-- `prefixIcon` (string): An icon or image that appears before the button's text. It can be specified as a path to an icon file or a CSS class for an icon font.
-- `suffixIcon` (string): An icon or image that appears after the button's text. It can be specified as a path to an icon file or a CSS class for an icon font.
-- `gradientDirection` (string): The direction of a gradient applied to the button's background. Common values include "top," "left," "right," etc.
-- `gradientColors` (string[]): An array of CSS color values representing the colors used in a gradient background for the button. The order of colors defines the gradient's transition.
+- `openLinkInNewTab` (boolean): A state that checks the link should in new window or in the same window.
 - `isDisabled` (boolean): A boolean flag that determines whether the button is in a disabled state. When set to true, the button is not clickable or interactive.

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 
 interface CapsuleButtonProps {
@@ -6,24 +6,23 @@ interface CapsuleButtonProps {
     textColor?: string
     fontSize?: number
     fontWeight?: number
+    backgroundColor?: string
+    textTransform?: string
     width?: number
     height?: number
-    backgroundColor?: string
     hoverTextColor?: string
-    hoverBackgroundColor?: string,
-    textTransform?: string,
-    openLink?: string,
-    clickFunction?: Function,
-    prefixIcon?: string,
-    suffixIcon?: string,
-    gradientDirection?: string,
-    gradientColors?: string[],
+    hoverBackgroundColor?: string
+    openLink?: string
+    openLinkInNewTab?: boolean
+    clickFunction?: () => void
+    prefixIcon?: string
+    suffixIcon?: string
     isDisabled?: boolean
 }
 
 const CapsuleButton = (props: CapsuleButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, isDisabled } = props
+    const { text, textColor, fontSize, fontWeight, backgroundColor, textTransform, openLinkInNewTab, width, height, hoverTextColor, hoverBackgroundColor, openLink, clickFunction, prefixIcon, suffixIcon, isDisabled } = props
 
     // Created styled button widget
     const CapsuleButtonWidget = styled.button`
@@ -37,50 +36,46 @@ const CapsuleButton = (props: CapsuleButtonProps) => {
         border-radius: 50px;
         border: none;
         cursor: pointer;
+        text-transform: ${textTransform || 'capitalize'};
     `;
 
     // Button properties
     var buttonProperties = {
         backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
-        TextTransform: textTransform,
         width, height,
-        backgroundImage: gradientDirection ? `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})` : undefined
     }
 
     // Disabled Button Properties
     var disabledButtonProperties = {
         backgroundColor: '#D9D9D9',
-        TextTransform: textTransform,
         cursor: 'not-allowed',
         width, height,
-        backgroundImage: 'none'
     }
 
     // Label properties
     var textProperties = {
         color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform,
-        paddingLeft: '10px',
-        paddingRight: '10px'
+        fontSize, fontWeight,
+        marginLeft: 16,
+        marginRight: 16
     }
-
 
     return (
         <CapsuleButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
-            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
+            onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
             disabled={isDisabled}
         >
 
             {/* Button Prefix Icon */}
-            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" />}
+            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }}  />}
 
             {/* Button Label */}
             <p style={{ ...textProperties }}>{text}</p>
 
             {/* Button Suffix Icon */}
-            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" />}
+            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }}  />}
         </CapsuleButtonWidget>
     );
 };

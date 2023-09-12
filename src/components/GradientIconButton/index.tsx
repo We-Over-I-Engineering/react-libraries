@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 
 interface GradientIconButtonProps {
@@ -8,22 +8,24 @@ interface GradientIconButtonProps {
     fontWeight?: number
     width?: number
     height?: number
+    borderRadius?: number
     hoverTextColor?: string
-    hoverBackgroundColor?: string,
-    textTransform?: string,
+    textTransform?: string
     openLink?: string,
-    clickFunction?: Function,
-    prefixIcon?: string,
-    suffixIcon?: string,
-    gradientDirection: string,
+    openLinkInNewTab?: boolean
+    clickFunction?: () => void
+    prefixIcon?: string
+    suffixIcon?: string
+    gradientDirection: string
+    hoverGradientDirection: string
     gradientColors: string[],
+    hoverGradientColors: string[]
     isDisabled?: boolean
-    borderRadius?: string
 }
 
 const GradientIconButton = (props: GradientIconButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, isDisabled, borderRadius } = props
+    const { text, textColor, fontSize, fontWeight, width, height, borderRadius, hoverTextColor, textTransform, prefixIcon, suffixIcon, openLink, openLinkInNewTab, clickFunction, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, isDisabled } = props;
 
     // Created styled button widget
     const GradientIconButtonWidget = styled.button`
@@ -37,20 +39,20 @@ const GradientIconButton = (props: GradientIconButtonProps) => {
         border-radius: 50px;
         border: none;
         cursor: pointer;
+        text-transform: ${textTransform || 'capitalize'};
     `;
 
     // Button properties
     var buttonProperties = {
-        backgroundColor: onHover ? hoverBackgroundColor : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`,
-        TextTransform: textTransform,
         width, height, borderRadius,
-        backgroundImage: gradientDirection ? `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})` : undefined
+        backgroundImage: onHover ?
+            `linear-gradient(to ${hoverGradientDirection}, ${hoverGradientColors?.join(', ')})`
+            : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`
     }
 
     // Disabled Button Properties
     var disabledButtonProperties = {
         backgroundColor: '#D9D9D9',
-        TextTransform: textTransform,
         cursor: 'not-allowed',
         width, height, borderRadius,
         backgroundImage: 'none'
@@ -59,28 +61,24 @@ const GradientIconButton = (props: GradientIconButtonProps) => {
     // Label properties
     var textProperties = {
         color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform,
-        paddingLeft: '10px',
-        paddingRight: '10px'
+        fontSize, fontWeight,
+        marginLeft: 16,
+        marginRight: 16
     }
-
 
     return (
         <GradientIconButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
-            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
+            onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
             disabled={isDisabled}
         >
-
             {/* Button Prefix Icon */}
-            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" />}
-
+            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }} />}
             {/* Button Label */}
             <p style={{ ...textProperties }}>{text}</p>
-
             {/* Button Suffix Icon */}
-            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" />}
+            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }}  />}
         </GradientIconButtonWidget>
     );
 };

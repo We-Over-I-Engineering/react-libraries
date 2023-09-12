@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 
 interface CircleButtonProps {
@@ -6,19 +6,21 @@ interface CircleButtonProps {
     textColor?: string
     fontSize?: number
     fontWeight?: number
+    backgroundColor?: string
+    textTransform?: string
     width?: number
     height?: number
-    backgroundColor?: string
     hoverTextColor?: string
-    hoverBackgroundColor?: string,
-    textTransform?: string,
-    openLink?: string,
-    clickFunction?: Function
+    hoverBackgroundColor?: string
+    openLink?: string
+    openLinkInNewTab?: boolean
+    clickFunction?: () => void
+    isDisabled?: boolean
 }
 
 const CircleButton = (props: CircleButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction } = props
+    const { text, textColor, fontSize, fontWeight, backgroundColor, textTransform, width, height, hoverTextColor, hoverBackgroundColor, openLink, openLinkInNewTab, clickFunction, isDisabled } = props
 
     // Created styled button widget
     const CircleButtonWidget = styled.button`
@@ -32,24 +34,31 @@ const CircleButton = (props: CircleButtonProps) => {
         border-radius: 100%;
         border: none;
         cursor: pointer;
+        text-transform: ${textTransform || 'capitalize'};
     `;
+
+    // Disabled Button Properties
+    var disabledButtonProperties = {
+        backgroundColor: '#D9D9D9',
+        cursor: 'not-allowed',
+        width, height,
+    }
 
     // Button properties
     var buttonProperties = {
         backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
-        TextTransform: textTransform,
         width, height,
     }
 
     // Label properties
     var textProperties = {
         color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform
+        fontSize, fontWeight,
     }
 
     return (
-        <CircleButtonWidget style={{ ...buttonProperties }}
-            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
+        <CircleButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
+            onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
         >

@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 
 interface ButtonProps {
     text?: string
     textColor?: string
+    hoverTextColor?: string
     fontSize?: number
     fontWeight?: number
     width?: number
     height?: number
+    borderRadius?: number
+    textTransform?: string
     backgroundColor?: string
-    hoverTextColor?: string
-    hoverBackgroundColor?: string,
-    textTransform?: string,
-    openLink?: string,
-    clickFunction?: Function,
+    hoverBackgroundColor?: string
+    loading?: boolean
+    loaderColor?: string
+    openLink?: string
+    openLinkInNewTab?: boolean
+    clickFunction?: () => void
     prefixIcon?: string,
     suffixIcon?: string,
     gradientDirection?: string,
     gradientColors?: string[],
+    hoverGradientDirection?: string
+    hoverGradientColors?: string[],
     isDisabled?: boolean,
-    borderRadius?: string
 }
 
 const Button = (props: ButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, fontSize, fontWeight, backgroundColor, width, height, hoverTextColor, hoverBackgroundColor, textTransform, openLink, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, isDisabled, borderRadius } = props
+    const [onHoverGradient, setHoverGradientState] = useState(false);
+
+
+
+    const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, borderRadius, textTransform, backgroundColor, hoverBackgroundColor, loading, loaderColor, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, isDisabled } = props
 
     // Created styled button widget
     const ButtonWidget = styled.button`
@@ -35,23 +44,29 @@ const Button = (props: ButtonProps) => {
         text-align: center;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.12);
         outline: none !important;
-        border-radius: 50px;
+        border-radius: 20px;
         border: none;
         cursor: pointer;
+        text-transform: ${textTransform || 'capitalize'};
     `;
 
     // Button properties
     var buttonProperties = {
         backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
-        TextTransform: textTransform,
         width, height, borderRadius,
-        backgroundImage: gradientDirection ? `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})` : undefined
+    }
+
+    // Gradiant button properties
+    var gradiantButtonProperties = {
+        width, height, borderRadius,
+        backgroundImage: onHoverGradient ?
+            `linear-gradient(to ${hoverGradientDirection}, ${hoverGradientColors?.join(', ')})`
+            : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`
     }
 
     // Disabled Button Properties
     var disabledButtonProperties = {
         backgroundColor: '#D9D9D9',
-        TextTransform: textTransform,
         cursor: 'not-allowed',
         width, height, borderRadius,
         backgroundImage: 'none'
@@ -59,30 +74,50 @@ const Button = (props: ButtonProps) => {
 
     // Label properties
     var textProperties = {
-        color: onHover ? hoverTextColor : textColor,
-        fontSize, fontWeight, TextTransform: textTransform,
-        paddingLeft: '10px',
-        paddingRight: '10px'
+        fontSize, fontWeight,
+        marginLeft: text ? 10 : 0,
+        marginRight: text ? 10 : 0,
     }
 
 
+
     return (
-        <ButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
-            onClick={() => openLink ? window.open(openLink, '_blank') : clickFunction?.()} // click to open web pages or run function
-            onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
-            onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
-            disabled={isDisabled}
-        >
+        <>
+            {/* Button */}
+            <ButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
+                onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
+                onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
+                onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
+                disabled={isDisabled}
+            >
+                {/* Button Prefix Icon */}
+                {prefixIcon && <img src={prefixIcon} alt="prefixIcon" height={16} width={16} />}
+                {/* Button Label */}
+                <p style={{ ...textProperties, color: onHover ? hoverTextColor : textColor, }}>{text}</p>
+                {/* Button Suffix Icon */}
+                {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} />}
+            </ButtonWidget>
 
-            {/* Button Prefix Icon */}
-            {prefixIcon && <img src={prefixIcon} alt="prefixIcon" />}
+            {/* Break */}
+            <br /><br />
 
-            {/* Button Label */}
-            <p style={{ ...textProperties }}>{text}</p>
+            {/* Gradient Button */}
+            <ButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...gradiantButtonProperties }}
+                onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
+                onMouseEnter={() => setHoverGradientState(true)} // set hover state true and change button background
+                onMouseLeave={() => setHoverGradientState(false)} // unset hover state and revert hover changes to default
+                disabled={isDisabled}
+            >
 
-            {/* Button Suffix Icon */}
-            {suffixIcon && <img src={suffixIcon} alt="suffixIcon" />}
-        </ButtonWidget>
+                {/* Button Prefix Icon */}
+                {prefixIcon && <img src={prefixIcon} alt="prefixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }} />}
+                {/* Button Label */}
+                <p style={{ ...textProperties, color: onHoverGradient ? hoverTextColor : textColor, }}>{`${text} Gradient Button`}</p>
+                {/* Button Suffix Icon */}
+                {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }} />}
+            </ButtonWidget>
+
+        </>
     );
 };
 

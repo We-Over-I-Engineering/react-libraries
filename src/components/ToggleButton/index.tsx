@@ -1,36 +1,32 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 
 interface ToggleButtonProps {
     isToggled?: boolean;
-    onToggle?: (isToggled: boolean) => void;
     trueBackgroundColor?: string;
     falseBackgroundColor?: string;
 }
 
 const ToggleButton = (props: ToggleButtonProps) => {
-    const { isToggled, onToggle, trueBackgroundColor = 'green', falseBackgroundColor = 'gray' } = props;
-    const [toggled, setToggled] = useState(isToggled || false);
+    const { isToggled, trueBackgroundColor, falseBackgroundColor } = props;
+    const [toggled, setToggled] = useState(isToggled);
 
     // add animation to the slider
     const ToggleWidget = styled.button`
     width: 56px;
     height: 32px;
-    background-color: ${toggled ? trueBackgroundColor : falseBackgroundColor};
+    background-color: ${isToggled ? trueBackgroundColor : falseBackgroundColor};
     border-radius: 16px;
     cursor: pointer;
     position: relative;
     border: none;
     outline: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease;
   `;
 
     const handleToggle = () => {
         const newState = !toggled;
         setToggled(newState);
-        if (onToggle) {
-            onToggle(newState);
-        }
     };
 
     const Slider = styled.div`
@@ -40,8 +36,8 @@ const ToggleButton = (props: ToggleButtonProps) => {
     border-radius: 50%;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%) translateX(${toggled ? '20px' : '0'});
-    transition: 0.3s;
+    transform: translateY(-50%) translateX(${isToggled ? '20px' : '0'});
+    transition: 0.4s;
 `;
 
 
