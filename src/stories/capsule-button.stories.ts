@@ -4,6 +4,7 @@ import CapsuleButton from '../components/CapsuleButton';
 export default {
     title: 'Capsule Button',
     component: CapsuleButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

@@ -4,6 +4,7 @@ import ToggleButton from '../components/ToggleButton';
 export default {
     title: 'Toggle Button',
     component: ToggleButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

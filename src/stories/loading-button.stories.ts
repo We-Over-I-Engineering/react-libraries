@@ -4,6 +4,7 @@ import LoadingButton from '../components/LoadingButton';
 export default {
     title: 'Loading Button',
     component: LoadingButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

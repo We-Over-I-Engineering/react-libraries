@@ -4,6 +4,7 @@ import IconButton from '../components/IconButton';
 export default {
     title: 'Icon Button',
     component: IconButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

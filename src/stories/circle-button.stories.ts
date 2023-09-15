@@ -4,6 +4,7 @@ import CircleButton from "../components/CircleButton";
 export default {
     title: 'Circle Button',
     component: CircleButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

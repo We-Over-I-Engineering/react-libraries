@@ -4,6 +4,7 @@ import ParallelogramButton from '../components/ParallelogramButton';
 export default {
     title: 'Parallelogram Button',
     component: ParallelogramButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {
