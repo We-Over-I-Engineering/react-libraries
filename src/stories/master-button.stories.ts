@@ -4,6 +4,7 @@ import MasterButton from '../components/MasterButton';
 export default {
     title: 'Master Button',
     component: MasterButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

@@ -4,6 +4,7 @@ import GradientButton from '../components/GradientButton';
 export default {
     title: 'Gradient Button',
     component: GradientButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {

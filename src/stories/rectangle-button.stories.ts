@@ -4,6 +4,7 @@ import RectangleButton from "../components/RectangleButton";
 export default {
     title: 'Rectangle Button',
     component: RectangleButton,
+    tags: ['autodocs'],
 };
 
 export const Default = {
