@@ -1,25 +1,27 @@
 
-import MasterButton from '../components/MasterButton';
+import WOITextButton from '../components/WOITextButton';
 
 export default {
-    title: 'Master Button',
-    component: MasterButton,
+    title: 'WOI Text Button',
+    component: WOITextButton,
     tags: ['autodocs'],
 };
 
 export const Default = {
     args: {
-        text: 'Master Button',
+        text: 'WOI Text Button',
         textColor: '#ffffff',
         hoverTextColor: '#000000',
         fontSize: 16,
         fontWeight: 400,
-        width: 320,
+        width: 250,
         height: 50,
         borderRadius: 20,
         textTransform: 'capitalize',
         backgroundColor: '#e64178',
         hoverBackgroundColor: '#ffffff',
+        borderColor: '#e64178',
+        borderThickness: '3px',
         loading: false,
         loaderColor: '#6d5252',
         openLink: 'https://www.wikipedia.org/',
