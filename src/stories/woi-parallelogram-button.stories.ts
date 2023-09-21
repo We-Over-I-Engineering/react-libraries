@@ -1,31 +1,38 @@
 
-import GradientIconButton from '../components/GradientIconButton';
+import ParallelogramButton from '../components/WOIParallelogramButton';
 
 export default {
-    title: 'Gradient Icon Button',
-    component: GradientIconButton,
+    title: 'WOI Parallelogram Button',
+    component: ParallelogramButton,
     tags: ['autodocs'],
 };
 
 export const Default = {
     args: {
-        text: 'Gradient Icon Button',
+        text: 'WOI Parallelogram Button',
         textColor: '#ffffff',
-        hoverTextColor: '#ffffff',
+        hoverTextColor: '#e64178',
         fontSize: 16,
         fontWeight: 400,
         width: 300,
-        height: 50,
-        borderRadius: 50,
+        height: 48,
+        backgroundColor: '#e64178',
+        hoverBackgroundColor: '#ffffff',
+        borderColor: '#e64178',
+        borderThickness: '3px',
+        loading: false,
+        loaderColor: '#6d5252',
         textTransform: 'capitalize',
         openLink: 'https://www.wikipedia.org/',
-        openLinkInNewTab: true,
+        openLinkInNewTab: false,
         prefixIcon: 'https://cdn-icons-png.flaticon.com/512/271/271220.png',
         suffixIcon: 'https://cdn-icons-png.flaticon.com/512/32/32213.png',
+        isDisabled: false,
         gradientDirection: 'left',
         gradientColors: ['purple', 'yellow'],
         hoverGradientDirection: 'left',
         hoverGradientColors: ['yellow', 'purple'],
-        isDisabled: false,
+        skewType: 'left',
+        skew: 20
     },
 };

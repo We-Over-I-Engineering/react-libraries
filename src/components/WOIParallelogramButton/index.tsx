@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface ParallelogramButtonProps {
     text?: string
@@ -12,11 +12,19 @@ interface ParallelogramButtonProps {
     backgroundColor?: string
     hoverBackgroundColor?: string
     textTransform?: string
+    borderColor?: string
+    borderThickness?: string
+    loading?: boolean
+    loaderColor?: string
     openLink?: string,
     openLinkInNewTab?: boolean
     clickFunction?: () => void
     prefixIcon?: string
     suffixIcon?: string
+    gradientDirection?: string,
+    gradientColors?: string[],
+    hoverGradientDirection?: string
+    hoverGradientColors?: string[],
     isDisabled?: boolean
     skewType?: string
     skew?: number
@@ -25,7 +33,7 @@ interface ParallelogramButtonProps {
 const ParallelogramButton = (props: ParallelogramButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const [hoverIndex, setHoverIndex] = useState(-1);
-    const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, backgroundColor, hoverBackgroundColor, textTransform, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, isDisabled, skewType, skew } = props;
+    const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, backgroundColor, hoverBackgroundColor, borderColor, borderThickness, loading, loaderColor, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, textTransform, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, isDisabled, skewType, skew } = props;
 
     // Created styled button widget
     const ParallelogramButtonRightInclinedWidget = styled.button`
@@ -35,31 +43,40 @@ const ParallelogramButton = (props: ParallelogramButtonProps) => {
         position: relative;
         z-index: 1;
         text-align: center;
-        border: 0px;
         transform: skew(${skewType === 'left' ? null : '-'}${skew}deg);
         cursor: pointer;
         text-decoration: none;
-        background-color: #e64178;
+        outline: none !important;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.12);
+        border-color: ${borderColor};
+        border-style: solid;
+        border-width: ${borderThickness};
         text-transform: ${textTransform || 'capitalize'};
     `;
 
     // Button properties
-    var buttonProperties = { width, height }
-
-    // Disabled Button Properties
-    var disabledButtonProperties = {
-        backgroundColor: '#D9D9D9',
-        cursor: 'not-allowed',
+    var buttonProperties = {
+        backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
         width, height,
+        backgroundImage: onHover ?
+            `linear-gradient(to ${hoverGradientDirection}, ${hoverGradientColors?.join(', ')})`
+            : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`
     }
 
-    // Label properties
-    var textProperties = {
-        fontSize, fontWeight,
-        marginLeft: text ? 10 : 0,
-        marginRight: text ? 10 : 0,
-    }
+    var disabledButtonProperties = { backgroundColor: '#D9D9D9', cursor: 'not-allowed', width, height, backgroundImage: 'none' } // Disabled Button Properties
+
+    var textProperties = { fontSize, fontWeight, marginLeft: text ? 10 : 0, marginRight: text ? 10 : 0, } // Label properties
+
+    const spinner = keyframes`0% { transform: rotate(0deg)} 100% {transform: rotate(360deg)}`;
+
+    const SpinnerWidget = styled.div`
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid ${loaderColor || '#000000'};
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: ${spinner} 0.5s linear infinite;
+    `;
 
 
     return (
@@ -71,8 +88,11 @@ const ParallelogramButton = (props: ParallelogramButtonProps) => {
         >
             {/* Button Prefix Icon */}
             {prefixIcon && <img src={prefixIcon} alt="prefixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} />}
+
             {/* Button Label */}
-            <p style={{ ...textProperties, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)`, color: (onHover && hoverIndex === 0) ? hoverTextColor : textColor }}>{text}</p>
+            {loading ? <SpinnerWidget style={{ transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} /> :
+                <p style={{ ...textProperties, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)`, color: (onHover && hoverIndex === 0) ? hoverTextColor : textColor }}>{text}</p>}
+
             {/* Button Suffix Icon */}
             {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} />}
         </ParallelogramButtonRightInclinedWidget>
