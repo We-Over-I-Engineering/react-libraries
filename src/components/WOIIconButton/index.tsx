@@ -19,7 +19,7 @@ interface IconButtonProps {
     isDisabled?: boolean,
 }
 
-const IconButton = (props: IconButtonProps) => {
+const WOIIconButton = (props: IconButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const { size, borderRadius, backgroundColor, hoverBackgroundColor, borderColor, borderThickness, loading, loaderColor, openLink, openLinkInNewTab, clickFunction, icon, iconColor, iconsSize, isDisabled } = props
 
@@ -67,4 +67,4 @@ const IconButton = (props: IconButtonProps) => {
     );
 };
 
-export default IconButton;
+export default WOIIconButton;

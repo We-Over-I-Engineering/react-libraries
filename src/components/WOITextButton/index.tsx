@@ -29,12 +29,12 @@ interface ButtonProps {
     isDisabled?: boolean,
 }
 
-const Button = (props: ButtonProps) => {
+const WOITextButton = (props: ButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, borderRadius, borderThickness, borderColor, textTransform, backgroundColor, hoverBackgroundColor, loading, loaderColor, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, isDisabled } = props
 
     // Created styled button widget
-    const ButtonWidget = styled.button`
+    const TextButtonWidget = styled.button`
         display: flex;
         justify-content: center;
         font-family: 'Nunito Sans';
@@ -75,7 +75,7 @@ const Button = (props: ButtonProps) => {
     `;
 
     return (
-        <ButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
+        <TextButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties }}
             onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
             onMouseLeave={() => setHoverState(false)} // unset hover state and revert hover changes to default
@@ -90,8 +90,8 @@ const Button = (props: ButtonProps) => {
 
             {/* Suffix Icon */}
             {!loading && suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }} />}
-        </ButtonWidget>
+        </TextButtonWidget>
     );
 };
 
-export default Button;
+export default WOITextButton;
