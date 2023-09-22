@@ -6,6 +6,7 @@ We Over I button components are reusable React components for creating interacti
 
 - [We Over I Button Components](#we-over-i-button-components)
   - [Components](#components)
+  - [WOI Storybook](https://woi-react-storybook.netlify.app/)
   - [**Getting Started**](#getting-started)
     - [WOI Text Button](#woi-text-button)
     - [**Usage**](#usage)
@@ -14,6 +15,10 @@ We Over I button components are reusable React components for creating interacti
     - [WOI Parallelogram Button](#woi-parallelogram-button)
     - [**Parallelogram Button Usage**](#parallelogram-button-usage)
 
+
+## WOI Storybook 
+
+[WOI Storybook](https://woi-react-storybook.netlify.app/) is a tool for UI development, using components from the WOI library. It makes development faster and easier by isolating components. This allows you to work on any one of our component at a time. You can develop entire UIs without needing to start up a complex dev stack, force certain data into your database, or navigate around your application.
 ## **Getting Started**
 
 ```js
@@ -84,6 +89,9 @@ const textButtonWidget = () => {
 };
 ```
 ### WOI Icon Button
+
+// add an image from ../src/assets/buttons/WOIIconButton.png
+![Alt Text](image_url_or_relative_path)
 
 WOI Icon Button component accepts the following props:
        
