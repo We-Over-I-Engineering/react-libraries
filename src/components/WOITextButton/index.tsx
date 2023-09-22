@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { keyframes } from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
     text?: string
     textColor?: string
     hoverTextColor?: string

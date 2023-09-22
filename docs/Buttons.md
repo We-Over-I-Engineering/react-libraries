@@ -6,6 +6,7 @@ We Over I button components are reusable React components for creating interacti
 
 - [We Over I Button Components](#we-over-i-button-components)
   - [Components](#components)
+  - [WOI Storybook](https://woi-react-storybook.netlify.app/)
   - [**Getting Started**](#getting-started)
     - [WOI Text Button](#woi-text-button)
     - [**Usage**](#usage)
@@ -14,6 +15,10 @@ We Over I button components are reusable React components for creating interacti
     - [WOI Parallelogram Button](#woi-parallelogram-button)
     - [**Parallelogram Button Usage**](#parallelogram-button-usage)
 
+
+## WOI Storybook 
+
+[WOI Storybook](https://woi-react-storybook.netlify.app/) is a tool for UI development, using components from the WOI library. It makes development faster and easier by isolating components. This allows you to work on any one of our component at a time. You can develop entire UIs without needing to start up a complex dev stack, force certain data into your database, or navigate around your application.
 ## **Getting Started**
 
 ```js
@@ -21,6 +26,8 @@ import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-st
 ```
 
 ### WOI Text Button
+
+![WOI Text Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIButton.png)
 
 WOI Text Button component accepts the following props:
 
@@ -85,6 +92,8 @@ const textButtonWidget = () => {
 ```
 ### WOI Icon Button
 
+![WOI Icon Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIIconButton.png)
+
 WOI Icon Button component accepts the following props:
        
 | Props                | Type    |
@@ -126,6 +135,8 @@ const textButtonWidget = () => {
 };
 ```
 ### WOI Parallelogram Button
+
+![WOI Paralellogram Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIParalellogramButton.png)
 
 WOI Parallelogram Button component accepts the following props:
 
