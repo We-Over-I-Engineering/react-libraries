@@ -27,6 +27,8 @@ import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-st
 
 ### WOI Text Button
 
+![WOI Text Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIButton.png)
+
 WOI Text Button component accepts the following props:
 
 | Props                  | Type    |
@@ -90,8 +92,7 @@ const textButtonWidget = () => {
 ```
 ### WOI Icon Button
 
-// add an image from ../src/assets/buttons/WOIIconButton.png
-![Alt Text](image_url_or_relative_path)
+![WOI Icon Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIIconButton.png)
 
 WOI Icon Button component accepts the following props:
        
@@ -134,6 +135,8 @@ const textButtonWidget = () => {
 };
 ```
 ### WOI Parallelogram Button
+
+![WOI Paralellogram Button](https://github.com/We-Over-I-Engineering/react-libraries/blob/usman/update-README.md/src/assets/buttons/WOIParalellogramButton.png)
 
 WOI Parallelogram Button component accepts the following props:
 
