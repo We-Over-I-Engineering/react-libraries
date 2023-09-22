@@ -19,7 +19,7 @@ $ npm install --save react-awesome-button
 ## Documentation
 
 - 📒 [Components](#components)
-  - [Buttons](docs/Buttons.md): WOI Button components.
+  - [Buttons](https://github.com/We-Over-I-Engineering/react-libraries/blob/main/docs/Buttons.md): WOI Button components.
 - 👏 [Contributing](#contributing)
   - 👨‍💻 [Development scripts](#development-scripts)
 - :memo: [License](#license)
