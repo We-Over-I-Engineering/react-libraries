@@ -30,13 +30,13 @@ interface ParallelogramButtonProps {
     skew?: number
 }
 
-const ParallelogramButton = (props: ParallelogramButtonProps) => {
+const WOIParallelogramButton = (props: ParallelogramButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const [hoverIndex, setHoverIndex] = useState(-1);
     const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, backgroundColor, hoverBackgroundColor, borderColor, borderThickness, loading, loaderColor, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, textTransform, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, isDisabled, skewType, skew } = props;
 
     // Created styled button widget
-    const ParallelogramButtonRightInclinedWidget = styled.button`
+    const ParallelogramButtonWidget = styled.button`
         display: flex;
         justify-content: center;
         align-items: center;
@@ -80,7 +80,7 @@ const ParallelogramButton = (props: ParallelogramButtonProps) => {
 
 
     return (
-        <ParallelogramButtonRightInclinedWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties, backgroundColor: (onHover && hoverIndex === 0) ? hoverBackgroundColor : backgroundColor }}
+        <ParallelogramButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties, backgroundColor: (onHover && hoverIndex === 0) ? hoverBackgroundColor : backgroundColor }}
             onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => { setHoverIndex(0); setHoverState(true) }} // set hover state true and change button background
             onMouseLeave={() => { setHoverIndex(-1); setHoverState(false) }} // unset hover state and revert hover changes to default
@@ -95,8 +95,8 @@ const ParallelogramButton = (props: ParallelogramButtonProps) => {
 
             {/* Button Suffix Icon */}
             {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} />}
-        </ParallelogramButtonRightInclinedWidget>
+        </ParallelogramButtonWidget>
     );
 };
 
-export default ParallelogramButton;
+export default WOIParallelogramButton;
