@@ -63,3 +63,7 @@ or
 ## License
 This project is licensed under the MIT license, Copyright (c) 2023 We Over I. 
 For more information see `LICENSE.md`.
+
+## Publish to NPM
+- `npm login`
+- `npm publish --access public`

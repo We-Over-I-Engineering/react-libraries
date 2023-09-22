@@ -20,7 +20,7 @@
     "noEmit": false,
     "jsx": "react-jsx",
 
-    "declaration": false,
+    "declaration": true,
     "outDir": "dist"
   },
   "include": [

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { keyframes } from "styled-components";
 
-interface IconButtonProps {
+export interface IconButtonProps {
     size?: number
     borderRadius?: number
     backgroundColor?: string

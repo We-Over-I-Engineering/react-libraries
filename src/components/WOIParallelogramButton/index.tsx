@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { keyframes } from "styled-components";
 
-interface ParallelogramButtonProps {
+export interface ParallelogramButtonProps {
     text?: string
     textColor?: string
     hoverTextColor?: string
