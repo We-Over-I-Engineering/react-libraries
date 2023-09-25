@@ -13,7 +13,7 @@ v18.17.1
 
 ## Installation
 ```sh
-$ npm install --save react-awesome-button
+$ npm install --save woi-react-storybook
 ```
 
 ## Documentation
