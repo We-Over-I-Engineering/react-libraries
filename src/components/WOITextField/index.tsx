@@ -38,7 +38,7 @@ export interface TextFieldProps {
 }
 
 const WOITextField = (props: TextFieldProps) => {
-    const { placeholder, backgroundColor, borderWidth, borderType, borderColor, borderRadius } = props
+    const { placeholder, backgroundColor, borderWidth, borderType, borderColor, borderRadius, fontSize, fontFamily, fontWeight, fontDecoration, color } = props
 
     // Created styled button widget
     const TextFieldWidget = styled.input`
@@ -51,6 +51,13 @@ const WOITextField = (props: TextFieldProps) => {
     border-radius: ${borderRadius || '4px'};
     border: ${borderWidth || '1px'} ${borderType || 'solid'} ${borderColor || '#E0E0E0'};
     background: ${backgroundColor};
+
+    color: ${color || '#000000'};
+    font-family: ${fontFamily || 'Roboto'};
+    font-size: ${fontSize || '18px'};
+    font-style: normal;
+    font-weight: ${fontWeight || '400'};
+    line-height: normal;
     `;
 
     return (

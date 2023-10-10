@@ -6,13 +6,71 @@ export default {
     tags: ['autodocs'],
 };
 
+// placeholder?: string;
+
+//     fontSize?: string;
+//     fontWeight?: string;
+//     fontFamily?: string;
+//     fontDecoration?: string;
+//     color?: string;
+
+//     label?: string;
+//     labelFontSize?: string;
+//     labelFontWeight?: string;
+//     labelFontFamily?: string;
+//     labelFontDecoration?: string;
+//     labelColor?: string;
+
+//     leftIconSize?: string;
+//     leftIconColor?: string;
+//     leftIconWeight?: string;
+
+//     rightIconSize?: string;
+//     rightIconColor?: string;
+//     rightIconWeight?: string;
+
+//     backgroundColor?: string;
+//     backgroundOpacity?: string;
+//     borderColor?: string;
+//     borderWidth?: string;
+//     borderRadius?: string;
+//     borderType?: string;
+//     boxShadow?: string;
+
 export const Default = {
     args: {
         borderColor: '#007EDA',
         backgroundColor: '#F3F7FD',
+        backgroundOpacity: '1',
         borderRadius: '6px',
         borderWidth: '1px',
-        borderStyle: 'solid',
+        borderType: 'solid',
         placeholder: 'Placeholder Text',
+
+        fontSize: '16px',
+        fontWeight: '400',
+        fontFamily: 'Roboto',
+        fontDecoration: 'none',
+        color: '#007EDA',
+
+        label: 'Label Text',
+        labelFontSize: '16px',
+        labelFontWeight: '400',
+        labelFontFamily: 'Roboto',
+        labelFontDecoration: 'none',
+        labelColor: '#007EDA',
+
+        leftIcon: '',
+        leftIconSize: '24px',
+        leftIconColor: '#007EDA',
+        leftIconWeight: '400',
+
+        rightIcon: '',
+        rightIconSize: '24px',
+        rightIconColor: '#007EDA',
+        rightIconWeight: '400',
+
+        boxShadow: 'none',
+
     },
 };
