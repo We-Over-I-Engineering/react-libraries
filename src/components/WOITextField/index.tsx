@@ -1,3 +1,4 @@
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 import styled from "styled-components";
 
 export interface TextFieldProps {
@@ -10,6 +11,7 @@ export interface TextFieldProps {
     color?: string;
 
     label?: string;
+    supportingText?: string;
     labelFontSize?: string;
     labelFontWeight?: string;
     labelFontFamily?: string;
@@ -35,10 +37,13 @@ export interface TextFieldProps {
     onChange?: () => void;
     onComplete?: () => void;
 
+    isDisabled?: boolean;
+    isSuccess?: boolean;
+
 }
 
 const WOITextField = (props: TextFieldProps) => {
-    const { placeholder, backgroundColor, borderWidth, borderType, borderColor, borderRadius, fontSize, fontFamily, fontWeight, fontDecoration, color } = props
+    const { supportingText, label, labelColor, labelFontDecoration, labelFontFamily, labelFontSize, labelFontWeight, placeholder, backgroundColor, borderWidth, borderType, borderColor, borderRadius, fontSize, fontFamily, fontWeight, fontDecoration, color, isDisabled, isSuccess } = props
 
     // Created styled button widget
     const TextFieldWidget = styled.input`
@@ -58,10 +63,35 @@ const WOITextField = (props: TextFieldProps) => {
     font-style: normal;
     font-weight: ${fontWeight || '400'};
     line-height: normal;
+    opacity: ${isDisabled ? 0.5 : 1};
+    cursor: ${isDisabled ? 'not-allowed' : 'auto'};
+
+    &:focus {
+        outline: none;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    }
+    `;
+
+    const LabelTextWidget = styled.label`
+    display: flex;
+    flex-direction: column;
+    margin: 4px 0px 4px 4px;
+    font-family: ${labelFontFamily || fontFamily || 'Roboto'};
+    font-size: ${labelFontSize || fontSize || '14px'};
+    font-style: normal;
+    font-weight: ${labelFontWeight || fontWeight || '400'};
+    line-height: normal;
+    color: ${labelColor || '#000000'};
+    opacity: ${isDisabled ? 0.5 : 1};
+    cursor: ${isDisabled ? 'not-allowed' : 'auto'};
     `;
 
     return (
-        <TextFieldWidget placeholder={placeholder} />
+        <>
+            <LabelTextWidget>{label}</LabelTextWidget>
+            <TextFieldWidget placeholder={placeholder} disabled={isDisabled} />
+            <LabelTextWidget>{supportingText}</LabelTextWidget>
+        </>
     );
 };
 

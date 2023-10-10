@@ -39,6 +39,8 @@ export default {
 
 export const Default = {
     args: {
+        isDisabled: false,
+
         borderColor: '#007EDA',
         backgroundColor: '#F3F7FD',
         backgroundOpacity: '1',
@@ -54,11 +56,12 @@ export const Default = {
         color: '#007EDA',
 
         label: 'Label Text',
+        supportingText: 'Supporting Text',
         labelFontSize: '16px',
         labelFontWeight: '400',
         labelFontFamily: 'Roboto',
         labelFontDecoration: 'none',
-        labelColor: '#007EDA',
+        labelColor: '#000000',
 
         leftIcon: '',
         leftIconSize: '24px',
@@ -71,6 +74,7 @@ export const Default = {
         rightIconWeight: '400',
 
         boxShadow: 'none',
+
 
     },
 };
