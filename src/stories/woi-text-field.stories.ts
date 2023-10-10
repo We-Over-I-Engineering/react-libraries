@@ -1,3 +1,5 @@
+import { default as LeftIcon } from "../assets/svgs/WOITextFieldLeftIcon.svg";
+import { default as RightIcon } from "../assets/svgs/WOITextFieldRightIcon.svg";
 import WOITextField from '../components/WOITextField';
 
 export default {
@@ -6,76 +8,25 @@ export default {
     tags: ['autodocs'],
 };
 
-// placeholder?: string;
-
-//     fontSize?: string;
-//     fontWeight?: string;
-//     fontFamily?: string;
-//     fontDecoration?: string;
-//     color?: string;
-
-//     label?: string;
-//     labelFontSize?: string;
-//     labelFontWeight?: string;
-//     labelFontFamily?: string;
-//     labelFontDecoration?: string;
-//     labelColor?: string;
-
-//     leftIconSize?: string;
-//     leftIconColor?: string;
-//     leftIconWeight?: string;
-
-//     rightIconSize?: string;
-//     rightIconColor?: string;
-//     rightIconWeight?: string;
-
-//     backgroundColor?: string;
-//     backgroundOpacity?: string;
-//     borderColor?: string;
-//     borderWidth?: string;
-//     borderRadius?: string;
-//     borderType?: string;
-//     boxShadow?: string;
-
 export const Default = {
     args: {
-        isDisabled: false,
-        isSuccess: false,
-
+        label: "Label text",
+        labelColor: "#000000",
+        placeholder: "Placeholder here...",
+        placeholderColor: "#00000050",
+        supportingText: 'Supporting text',
+        supportingTextColor: '#000000',
         borderColor: '#007EDA',
         backgroundColor: '#F3F7FD',
         backgroundOpacity: '1',
         borderRadius: '6px',
         borderWidth: '1px',
         borderType: 'solid',
-        placeholder: 'Placeholder Text',
-
-        fontSize: '16px',
-        fontWeight: '400',
-        fontFamily: 'Roboto',
-        fontDecoration: 'none',
-        color: '#007EDA',
-
-        label: 'Label Text',
-        supportingText: 'Supporting Text',
-        labelFontSize: '16px',
-        labelFontWeight: '400',
-        labelFontFamily: 'Roboto',
-        labelFontDecoration: 'none',
-        labelColor: '#000000',
-
-        leftIcon: '',
-        leftIconSize: '24px',
-        leftIconColor: '#007EDA',
-        leftIconWeight: '400',
-
-        rightIcon: '',
-        rightIconSize: '24px',
-        rightIconColor: '#007EDA',
-        rightIconWeight: '400',
-
         boxShadow: 'none',
-
-
+        leftIcon: LeftIcon,
+        leftIconSize: 24,
+        rightIcon: RightIcon,
+        rightIconSize: 24,
+        isDisabled: false,
     },
 };
