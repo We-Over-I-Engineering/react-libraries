@@ -40,6 +40,7 @@ export default {
 export const Default = {
     args: {
         isDisabled: false,
+        isSuccess: false,
 
         borderColor: '#007EDA',
         backgroundColor: '#F3F7FD',

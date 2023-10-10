@@ -72,6 +72,8 @@ const WOITextField = (props: TextFieldProps) => {
     }
     `;
 
+    var successTextInputProperties = { border: '1px solid #00B87C', backgroundColor: 'green' } // Success Text Input Properties
+
     const LabelTextWidget = styled.label`
     display: flex;
     flex-direction: column;
