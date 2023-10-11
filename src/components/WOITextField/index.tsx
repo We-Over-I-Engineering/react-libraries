@@ -1,31 +1,43 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
+import { useState } from "react";
 import styled from "styled-components";
+import { default as ErrorIcon } from "../../assets/svgs/WOITextFieldErrorIcon.svg";
+import { default as SuccessIcon } from "../../assets/svgs/WOITextFieldSuccessIcon.svg";
 
 export interface TextFieldProps {
-    placeholder?: string;
+    // Label Text Properties
+    label?: string
+    labelFontSize?: string
+    labelFontWeight?: string
+    labelFontFamily?: string
+    labelFontDecoration?: string
+    labelColor?: string
 
+    // Placeholder Properties
+    placeholder?: string
+    placeholderFontSize?: string
+    placeholderFontWeight?: string
+    placeholderFontFamily?: string
+    placeholderFontDecoration?: string
+    placeholderColor?: string
+
+    // Input Field Properties
     fontSize?: string;
     fontWeight?: string;
     fontFamily?: string;
     fontDecoration?: string;
     color?: string;
 
-    label?: string;
-    supportingText?: string;
-    labelFontSize?: string;
-    labelFontWeight?: string;
-    labelFontFamily?: string;
-    labelFontDecoration?: string;
-    labelColor?: string;
-
-    leftIconSize?: string;
+    // Left Icon 
+    leftIcon?: string
+    leftIconSize?: number;
     leftIconColor?: string;
-    leftIconWeight?: string;
 
-    rightIconSize?: string;
+    // Right Icon
+    rightIcon?: string;
+    rightIconSize?: number;
     rightIconColor?: string;
-    rightIconWeight?: string;
 
+    // Container
     backgroundColor?: string;
     backgroundOpacity?: string;
     borderColor?: string;
@@ -34,65 +46,152 @@ export interface TextFieldProps {
     borderType?: string;
     boxShadow?: string;
 
-    onChange?: () => void;
+    // Supporting Text Properties
+    supportingText?: string;
+    supportingTextFontSize?: string;
+    supportingTextFontWeight?: string;
+    supportingTextFontFamily?: string;
+    supportingTextFontDecoration?: string;
+    supportingTextColor?: string;
+
+    // Actions
     onComplete?: () => void;
 
+    // Status
     isDisabled?: boolean;
-    isSuccess?: boolean;
-
 }
 
 const WOITextField = (props: TextFieldProps) => {
-    const { supportingText, label, labelColor, labelFontDecoration, labelFontFamily, labelFontSize, labelFontWeight, placeholder, backgroundColor, borderWidth, borderType, borderColor, borderRadius, fontSize, fontFamily, fontWeight, fontDecoration, color, isDisabled, isSuccess } = props
+    const [input, setInput] = useState('');
+    const [isError, setError] = useState(false);
+    const [isSuccess, setSuccess] = useState(false);
+    var {
+        label, labelFontSize, labelFontWeight, labelFontFamily, labelFontDecoration, labelColor,
+        placeholder, placeholderFontSize, placeholderFontWeight, placeholderFontFamily, placeholderFontDecoration, placeholderColor,
+        leftIcon, leftIconSize,
+        rightIcon, rightIconSize,
+        fontSize, fontFamily, fontWeight, color, backgroundColor, borderWidth, borderType, borderColor, borderRadius,
+        supportingText, supportingTextFontSize, supportingTextFontWeight, supportingTextFontFamily, supportingTextFontDecoration, supportingTextColor,
+        isDisabled
+    } = props;
+
 
     // Created styled button widget
     const TextFieldWidget = styled.input`
-    display: flex;
-    width: 346px;
-    height: 56px;
-    padding: 0px 16px;
-    align-items: center;
-    gap: 16px;
-    border-radius: ${borderRadius || '4px'};
-    border: ${borderWidth || '1px'} ${borderType || 'solid'} ${borderColor || '#E0E0E0'};
-    background: ${backgroundColor};
-
-    color: ${color || '#000000'};
-    font-family: ${fontFamily || 'Roboto'};
-    font-size: ${fontSize || '18px'};
-    font-style: normal;
-    font-weight: ${fontWeight || '400'};
-    line-height: normal;
-    opacity: ${isDisabled ? 0.5 : 1};
-    cursor: ${isDisabled ? 'not-allowed' : 'auto'};
-
-    &:focus {
+        display: flex;
+        align-items: center;
+        width: 346px;
+        height: 56px;
+        padding: 0px 16px 0 40px;
+        gap: 16px;
         outline: none;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-    }
+        border-radius: ${borderRadius || '4px'};
+        border: ${borderWidth || '1px'} ${borderType || 'solid'} ${isSuccess ? '#00B87C' : isError ? '#ff3333' : borderColor || '#00000050'};
+        background: ${backgroundColor};
+        color: ${color || '#000000'};
+        font-family: ${fontFamily || 'Nunito Sans'};
+        font-size: ${fontSize || '16px'};
+        font-style: normal;
+        text-transform: capitalize;
+        font-weight: ${fontWeight || '400'};
+        line-height: normal;
+        opacity: ${isDisabled ? 0.5 : 1};
+        cursor: ${isDisabled ? 'not-allowed' : 'auto'};
+      
+        &::placeholder,  &::-webkit-input-placeholder {
+            font-family: ${placeholderFontFamily || 'Nunito Sans'};
+            font-size: ${placeholderFontSize || '14px'};
+            font-weight: ${placeholderFontWeight || '400'};
+            text-decoration: ${placeholderFontDecoration || 'normal'};
+            color: ${placeholderColor || '#000000'};
+            opacity: ${isDisabled ? 0.5 : 1};
+        }
+        
+        &:-ms-input-placeholder {
+            font-family: ${placeholderFontFamily || 'Nunito Sans'};
+            font-size: ${placeholderFontSize || '12px'};
+            font-weight: ${placeholderFontWeight || '400'};
+            text-decoration: ${placeholderFontDecoration || 'normal'};
+            color: ${placeholderColor || '#000000'};
+            opacity: ${isDisabled ? 0.5 : 1};
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+            border: ${borderWidth || '1px'} ${borderType || 'solid'} ${isSuccess ? '#00B87C' : isError ? '#ff3333' : borderColor || '#E0E0E0'};
+            &::placeholder {
+                opacity: 0;
+            }
+        }
     `;
 
-    var successTextInputProperties = { border: '1px solid #00B87C', backgroundColor: 'green' } // Success Text Input Properties
+    const ContainerWidget = styled.div`
+        position: relative;
+        width: max-content;
+        height: auto;
+    `;
+
+    const LeftIconWidget = styled.object`
+        position: absolute;
+        left: 3%;
+        top: 50%;
+        transform: translate(-8%, -50%);
+    `;
+
+    const RightIconWidget = styled.object`
+        position: absolute;
+        right: 3%;
+        top: 50%;
+        transform: translate(-8%, -50%);
+    `;
 
     const LabelTextWidget = styled.label`
-    display: flex;
-    flex-direction: column;
-    margin: 4px 0px 4px 4px;
-    font-family: ${labelFontFamily || fontFamily || 'Roboto'};
-    font-size: ${labelFontSize || fontSize || '14px'};
-    font-style: normal;
-    font-weight: ${labelFontWeight || fontWeight || '400'};
-    line-height: normal;
-    color: ${labelColor || '#000000'};
-    opacity: ${isDisabled ? 0.5 : 1};
-    cursor: ${isDisabled ? 'not-allowed' : 'auto'};
+        display: flex;
+        flex-direction: column;
+        margin: 4px 0px 12px 4px;
+        font-family: ${labelFontFamily || 'Nunito Sans'};
+        font-size: ${labelFontSize || '16px'};
+        font-style: normal;
+        font-weight: ${labelFontWeight || '400'};
+        line-height: normal;
+        text-decoration: ${labelFontDecoration || 'normal'};
+        color: ${labelColor || '#000000'};
     `;
+
+    const SupportingTextWidget = styled.p`
+        display: flex;
+        flex-direction: column;
+        margin: 12px 0px 0px 4px;
+        font-family: ${supportingTextFontFamily || 'Nunito Sans'};
+        font-size: ${supportingTextFontSize || '12px'};
+        font-style: normal;
+        font-weight: ${supportingTextFontWeight || '400'};
+        line-height: normal;
+        text-decoration: ${supportingTextFontDecoration || 'normal'};
+        color: ${supportingTextColor || '#000000'};
+    `;
+
+    const handleInput = (e: any) => setInput(e.target.value);
+
+    const validateField = () => {
+        if (input === '') { setError(true); }
+        else { setSuccess(true); }
+    }
 
     return (
         <>
             <LabelTextWidget>{label}</LabelTextWidget>
-            <TextFieldWidget placeholder={placeholder} disabled={isDisabled} />
-            <LabelTextWidget>{supportingText}</LabelTextWidget>
+            <ContainerWidget>
+                <TextFieldWidget placeholder={placeholder} disabled={isDisabled}
+                    onBlur={validateField}
+                    onDragEnter={validateField}
+                    value={input}
+                    onChange={handleInput} />
+                <LeftIconWidget data={leftIcon} height={leftIconSize} width={leftIconSize} />
+                <RightIconWidget data={isSuccess ? SuccessIcon : isError ? ErrorIcon : rightIcon} height={rightIconSize} width={rightIconSize} />
+            </ContainerWidget>
+            <SupportingTextWidget>{supportingText}</SupportingTextWidget>
         </>
     );
 };
