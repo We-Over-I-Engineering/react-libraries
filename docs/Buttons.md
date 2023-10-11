@@ -20,6 +20,8 @@ We Over I button components are reusable React components for creating interacti
     - [**Radio Button Usage**](#radio-button-usage)
     - [WOI Switch Button](#woi-switch-button)
     - [**Switch Button Usage**](#switch-button-usage)
+    - [WOI TextField](#woi-textfield)
+    - [**TextField Usage**](#textfield-usage)
 
 
 ## WOI Storybook 
@@ -28,7 +30,7 @@ We Over I button components are reusable React components for creating interacti
 ## **Getting Started**
 
 ```js
-import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-storybook/buttons"
+import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-storybook/components"
 ```
 
 ### WOI Text Button
@@ -66,7 +68,7 @@ WOI Text Button component accepts the following props:
 
 ### **Usage**
 ```js
-import {WOITextButton} from "woi-react-storybook/buttons";
+import {WOITextButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOITextButton
@@ -121,7 +123,7 @@ WOI Icon Button component accepts the following props:
 
 ### **Icon Button Usage**
 ```js
-import {WOIIconButton} from "woi-react-storybook/buttons";
+import {WOIIconButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOITextButton
@@ -176,7 +178,7 @@ WOI Parallelogram Button component accepts the following props:
 
 ### **Parallelogram Button Usage**
 ```js
-import {WOIParallelogramButton} from "woi-react-storybook/buttons";
+import {WOIParallelogramButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOIParallelogramButton
@@ -231,7 +233,7 @@ WOI CheckBox component accepts the following props:
 ### **Checkbox Usage**
 
 ```js
-import {WOICheckBox} from "woi-react-storybook/buttons";
+import {WOICheckBox} from "woi-react-storybook/components";
 
 const WOICheckBoxWidget = () => {
   <WOICheckBox
@@ -268,7 +270,7 @@ WOI Radio Button component accepts the following props:
 ### **Radio Button Usage**
 
 ```js
-import {WOIRadioButton} from "woi-react-storybook/buttons";
+import {WOIRadioButton} from "woi-react-storybook/components";
 
 const WOIRadioButtonWidget = () => {
   <WOIRadioButton
@@ -303,7 +305,7 @@ WOI Switch Button component accepts the following props:
 ### **Switch Button Usage**
 
 ```js
-import {WOISwitchButton} from "woi-react-storybook/buttons";
+import {WOISwitchButton} from "woi-react-storybook/components";
 
 const WOISwitchButtonWidget = () => {
   <WOISwitchButton
@@ -325,6 +327,76 @@ const WOISwitchButtonWidget = () => {
     thumbActiveIcon="https://cdn-icons-png.flaticon.com/512/1400/1400310.png"
     thumbInActiveIcon="https://cdn-icons-png.flaticon.com/512/4445/4445942.png"
     thumbIconSize={20}
+  />;
+};
+```
+
+### WOI TextField
+
+WOI TextField component accepts the following props:
+
+
+| Props                        | Type     |
+| ---------------------------- | -------- |
+| label                        | String   |
+| labelFontSize                | String   |
+| labelFontWeight              | String   |
+| labelFontFamily              | String   |
+| labelFontDecoration          | String   |
+| labelColor                   | String   |
+| placeholder                  | String   |
+| placeholderFontSize          | String   |
+| placeholderFontWeight        | String   |
+| placeholderFontFamily        | String   |
+| placeholderFontDecoration    | String   |
+| placeholderColor             | String   |
+| supportingText               | String   |
+| supportingTextFontSize       | String   |
+| supportingTextFontWeight     | String   |
+| supportingTextFontFamily     | String   |
+| supportingTextFontDecoration | String   |
+| supportingTextColor          | String   |
+| fontSize                     | String   |
+| fontWeight                   | String   |
+| fontFamily                   | String   |
+| fontDecoration               | String   |
+| color                        | String   |
+| backgroundColor              | String   |
+| backgroundOpacity            | String   |
+| borderColor                  | String   |
+| borderWidth                  | String   |
+| borderRadius                 | Number   |
+| borderType                   | String   |
+| boxShadow                    | String   |
+| onComplete                   | Function |
+| isDisabled                   | Boolean  |
+
+
+### **TextField Usage**
+
+```js
+import {WOITextField} from "woi-react-storybook/components";
+
+const WOITextFieldWidget = () => {
+  <WOITextField
+    label="Label text"
+    labelColor= "#000000"
+    placeholder= "Placeholder here..."
+    placeholderColor= "#00000050"
+    supportingText= 'Supporting text'
+    supportingTextColor= '#000000'
+    borderColor= '#007EDA'
+    backgroundColor= '#F3F7FD'
+    backgroundOpacity= '1'
+    borderRadius= '6px'
+    borderWidth= '1px'
+    borderType= 'solid'
+    boxShadow= 'none'
+    leftIcon= ''
+    leftIconSize={24}
+    rightIcon= ''
+    rightIconSize= {24}
+    isDisabled={false}
   />;
 };
 ```
