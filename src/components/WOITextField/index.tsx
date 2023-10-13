@@ -1,196 +1,184 @@
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { default as ErrorIcon } from "../../assets/svgs/WOITextFieldErrorIcon.svg";
-import { default as SuccessIcon } from "../../assets/svgs/WOITextFieldSuccessIcon.svg";
+import { TextFieldWidget } from "./index.style";
+
+export const SuccessIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" fill="#00B87C" />
+    </svg>`;
+export const ErrorIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="#ff3333" />
+    </svg>`;
 
 export interface TextFieldProps {
     // Label Text Properties
     label?: string
-    labelFontSize?: string
+    labelFontSize?: number
     labelFontWeight?: string
     labelFontFamily?: string
     labelFontDecoration?: string
     labelColor?: string
-
     // Placeholder Properties
     placeholder?: string
-    placeholderFontSize?: string
+    placeholderFontSize?: number
     placeholderFontWeight?: string
     placeholderFontFamily?: string
     placeholderFontDecoration?: string
     placeholderColor?: string
-
     // Input Field Properties
-    fontSize?: string;
+    fontSize?: number;
     fontWeight?: string;
     fontFamily?: string;
     fontDecoration?: string;
     color?: string;
-
     // Left Icon 
     leftIcon?: string
     leftIconSize?: number;
     leftIconColor?: string;
-
     // Right Icon
     rightIcon?: string;
     rightIconSize?: number;
     rightIconColor?: string;
-
     // Container
     backgroundColor?: string;
     backgroundOpacity?: string;
     borderColor?: string;
-    borderWidth?: string;
-    borderRadius?: string;
+    borderWidth?: number;
+    borderRadius?: number;
     borderType?: string;
     boxShadow?: string;
-
     // Supporting Text Properties
     supportingText?: string;
-    supportingTextFontSize?: string;
+    supportingTextFontSize?: number;
     supportingTextFontWeight?: string;
     supportingTextFontFamily?: string;
     supportingTextFontDecoration?: string;
     supportingTextColor?: string;
-
     // Actions
     onComplete?: () => void;
-
     // Status
     isDisabled?: boolean;
 }
 
-const WOITextField = (props: TextFieldProps) => {
+
+const WOITextField: React.FC<TextFieldProps> = (props) => {
     const [input, setInput] = useState('');
     const [isError, setError] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-    var {
-        label, labelFontSize, labelFontWeight, labelFontFamily, labelFontDecoration, labelColor,
-        placeholder, placeholderFontSize, placeholderFontWeight, placeholderFontFamily, placeholderFontDecoration, placeholderColor,
-        leftIcon, leftIconSize,
-        rightIcon, rightIconSize,
-        fontSize, fontFamily, fontWeight, color, backgroundColor, borderWidth, borderType, borderColor, borderRadius,
+    const [focusState, setFocusState] = useState(false);
+    var { label, labelFontSize, labelFontWeight, labelFontFamily, labelFontDecoration, labelColor, placeholder,
+        leftIcon, leftIconSize, leftIconColor, rightIcon, rightIconSize, rightIconColor, isDisabled,
         supportingText, supportingTextFontSize, supportingTextFontWeight, supportingTextFontFamily, supportingTextFontDecoration, supportingTextColor,
-        isDisabled
     } = props;
 
-
-    // Created styled button widget
-    const TextFieldWidget = styled.input`
-        display: flex;
-        align-items: center;
-        width: 346px;
-        height: 56px;
-        padding: 0px 16px 0 40px;
-        gap: 16px;
-        outline: none;
-        border-radius: ${borderRadius || '4px'};
-        border: ${borderWidth || '1px'} ${borderType || 'solid'} ${isSuccess ? '#00B87C' : isError ? '#ff3333' : borderColor || '#00000050'};
-        background: ${backgroundColor};
-        color: ${color || '#000000'};
-        font-family: ${fontFamily || 'Nunito Sans'};
-        font-size: ${fontSize || '16px'};
-        font-style: normal;
-        text-transform: capitalize;
-        font-weight: ${fontWeight || '400'};
-        line-height: normal;
-        opacity: ${isDisabled ? 0.5 : 1};
-        cursor: ${isDisabled ? 'not-allowed' : 'auto'};
-      
-        &::placeholder,  &::-webkit-input-placeholder {
-            font-family: ${placeholderFontFamily || 'Nunito Sans'};
-            font-size: ${placeholderFontSize || '14px'};
-            font-weight: ${placeholderFontWeight || '400'};
-            text-decoration: ${placeholderFontDecoration || 'normal'};
-            color: ${placeholderColor || '#000000'};
-            opacity: ${isDisabled ? 0.5 : 1};
-        }
-        
-        &:-ms-input-placeholder {
-            font-family: ${placeholderFontFamily || 'Nunito Sans'};
-            font-size: ${placeholderFontSize || '12px'};
-            font-weight: ${placeholderFontWeight || '400'};
-            text-decoration: ${placeholderFontDecoration || 'normal'};
-            color: ${placeholderColor || '#000000'};
-            opacity: ${isDisabled ? 0.5 : 1};
-        }
-
-        &:focus {
-            outline: none;
-            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-            border: ${borderWidth || '1px'} ${borderType || 'solid'} ${isSuccess ? '#00B87C' : isError ? '#ff3333' : borderColor || '#E0E0E0'};
-            &::placeholder {
-                opacity: 0;
-            }
-        }
-    `;
-
-    const ContainerWidget = styled.div`
-        position: relative;
-        width: max-content;
-        height: auto;
-    `;
-
-    const LeftIconWidget = styled.object`
-        position: absolute;
-        left: 3%;
-        top: 50%;
-        transform: translate(-8%, -50%);
-    `;
-
-    const RightIconWidget = styled.object`
-        position: absolute;
-        right: 3%;
-        top: 50%;
-        transform: translate(-8%, -50%);
-    `;
-
+    console.log('labelFontSize', labelFontSize);
+    // Label
     const LabelTextWidget = styled.label`
         display: flex;
         flex-direction: column;
         margin: 4px 0px 12px 4px;
-        font-family: ${labelFontFamily || 'Nunito Sans'};
-        font-size: ${labelFontSize || '16px'};
+        font-family: ${labelFontFamily ? labelFontFamily : 'Nunito Sans'};
+        font-size: ${labelFontSize ? labelFontSize + 'px' : '16px'};
         font-style: normal;
-        font-weight: ${labelFontWeight || '400'};
+        font-weight: ${labelFontWeight ? labelFontWeight : '400'};
         line-height: normal;
-        text-decoration: ${labelFontDecoration || 'normal'};
-        color: ${labelColor || '#000000'};
+        text-decoration: ${labelFontDecoration ? labelFontDecoration : 'normal'};
+        color: ${labelColor ? labelColor : '#000000'};
     `;
 
+    // Input Container
+    const ContainerWidget = styled.div`
+        height: 56px;
+    `;
+
+    // Left Icon Widget
+    const LeftIconWidget = styled.div`
+        position: absolute;
+        left: 3%;
+        top: 50%;
+        transform: translate(-8%, -50%);
+        height: ${leftIconSize}px;
+        width: ${leftIconSize}px;
+        opacity: ${isDisabled ? 0.5 : 1};
+        cursor: ${isDisabled ? 'not-allowed' : 'auto'};
+        svg path{
+            fill: ${isSuccess ? '#00B87C' : isError ? '#ff3333' : focusState ? props.borderColor : leftIconColor}
+        }
+    `;
+
+    // Right Icon Widget
+    const RightIconWidget = styled.div`
+        position: absolute;
+        right: 3%;
+        top: 50%;
+        transform: translate(-8%, -50%);
+        height: ${rightIconSize}px;
+        width: ${rightIconSize}px;
+        opacity: ${isDisabled ? 0.2 : 1};
+        cursor: ${isDisabled ? 'not-allowed' : 'auto'};
+        svg path{
+            fill: ${isSuccess ? '#00B87C' : isError ? '#ff3333' : focusState ? props.borderColor : rightIconColor}
+        }
+    `;
+
+    // Supporting Text Widget
     const SupportingTextWidget = styled.p`
         display: flex;
         flex-direction: column;
         margin: 12px 0px 0px 4px;
-        font-family: ${supportingTextFontFamily || 'Nunito Sans'};
-        font-size: ${supportingTextFontSize || '12px'};
+        font-family: ${supportingTextFontFamily ? supportingTextFontFamily : 'Nunito Sans'};
+        font-size: ${supportingTextFontSize ? supportingTextFontSize + 'px' : '12px'};
         font-style: normal;
-        font-weight: ${supportingTextFontWeight || '400'};
+        font-weight: ${supportingTextFontWeight ? supportingTextFontWeight : '400'};
         line-height: normal;
-        text-decoration: ${supportingTextFontDecoration || 'normal'};
-        color: ${supportingTextColor || '#000000'};
+        text-decoration: ${supportingTextFontDecoration ? supportingTextFontDecoration : 'normal'};
+        color: ${supportingTextColor ? supportingTextColor : '#000000'};
     `;
 
-    const handleInput = (e: any) => setInput(e.target.value);
+    // onFocusOutside of the input widget
+    function useOutsideAlerter(ref: any) {
+        useEffect(() => {
+            function handleClickOutside(event: any) {
+                if (ref.current && !ref.current.contains(event.target) && !isDisabled) {
+                    inputValidator(ref.current.value);
+                }
 
-    const validateField = () => {
-        if (input === '') { setError(true); }
-        else { setSuccess(true); }
+                if (ref.current && ref.current.contains(event.target) && !isDisabled) {
+                    setFocusState(true);
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
     }
+
+    const wrapperRef: React.MutableRefObject<null> = useRef(null);
+
+    // Input validator
+    const inputValidator = (value: any) => {
+        setInput(value);
+        setFocusState(false);
+        if (value === '') { setError(true); setSuccess(false); }
+        else { setSuccess(true); setError(false); }
+    }
+    useOutsideAlerter(wrapperRef);
 
     return (
         <>
             <LabelTextWidget>{label}</LabelTextWidget>
-            <ContainerWidget>
-                <TextFieldWidget placeholder={placeholder} disabled={isDisabled}
-                    onBlur={validateField}
-                    onDragEnter={validateField}
-                    value={input}
-                    onChange={handleInput} />
-                <LeftIconWidget data={leftIcon} height={leftIconSize} width={leftIconSize} />
-                <RightIconWidget data={isSuccess ? SuccessIcon : isError ? ErrorIcon : rightIcon} height={rightIconSize} width={rightIconSize} />
-            </ContainerWidget>
+            <ContainerWidget style={{ position: 'relative', width: 'max-content', height: 'auto' }}>
+                {leftIcon ? <LeftIconWidget dangerouslySetInnerHTML={{ __html: leftIcon }} /> : null}
+                <TextFieldWidget
+                    type="text"
+                    defaultValue={input}
+                    ref={wrapperRef}
+                    disabled={isDisabled}
+                    placeholder={placeholder}
+                    variant={{ ...props, isSuccess, isError }}
+                />
+                {rightIcon ? <RightIconWidget dangerouslySetInnerHTML={{ __html: isSuccess ? SuccessIcon : isError ? ErrorIcon : rightIcon }} /> : null}
+            </ContainerWidget >
             <SupportingTextWidget>{supportingText}</SupportingTextWidget>
         </>
     );
