@@ -8,6 +8,7 @@ export default {
 
 export const Default = {
     args: {
+        type: 'text',
         label: "Label text",
         labelColor: "#000000",
         placeholder: "Placeholder here...",
@@ -32,6 +33,7 @@ export const Default = {
                 </svg>`,
         rightIconColor: 'black',
         rightIconSize: 24,
-        isDisabled: true
+        isDisabled: false,
+        multline: 0,
     },
 };

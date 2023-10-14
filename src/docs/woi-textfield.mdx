@@ -6,6 +6,7 @@ WOI textfield component is a reusable React component for creating interactive b
 
 WOI TextField component accepts the following props:
 
+- `type` (string): The type attribute specifies the type of input element to display. If the type attribute is not specified, the default type is 'text'.
 - `label` (string): The content to be displayed inside the button. This is the text that appears as label.
 - `labelFontSize` (string): The text size or font size of the label text. It determines how large or small the text appears.
 - `labelFontWeight` (string): The font weight of the button's text. It controls the thickness or boldness of the text characters.
@@ -36,5 +37,12 @@ WOI TextField component accepts the following props:
 - `borderRadius` (number): The borderRadius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.
 - `borderType` (string): The border-style property sets the style of an element's four borders. This property can have from one to four values. 
 - `boxShadow` (string): The CSS box-shadow property is used to apply one or more shadows to an element. Specify a Horizontal and a Vertical Shadow.
+- `multline` (number): Specifies the visible number of lines in a text area.
+- `leftIcon` (string): An icon or image that appears before the button's text. It can be specified as a path to an icon file or a CSS class for an icon font.
+- `leftIconSize` (number): The height and width of the icon, specified as a numerical value (e.g., pixels) or as a percentage of its container's width and height.
+- `leftIconColor` (string): The color of the icon. You can specify this using a CSS color value, such as a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
+- `rightIcon` (string): An icon or image that appears before the button's text. It can be specified as a path to an icon file or a CSS class for an icon font.
+- `rightIconSize` (number): The height and width of the icon, specified as a numerical value (e.g., pixels) or as a percentage of its container's width and height.
+- `rightIconColor` (string): The color of the icon. You can specify this using a CSS color value, such as a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
 - `onComplete` (Function): A function executed when input is filled and press enter key to submit the form.
 - `isDisabled` (boolean): A boolean flag that determines whether the button is in a disabled state. When set to true, the button is not clickable or interactive.
