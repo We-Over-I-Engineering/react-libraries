@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { TextFieldWidget } from "./index.style";
+import { ContainerWidget, TextAreaWidget, TextFieldWidget } from "./index.style";
 
 export const SuccessIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" fill="#00B87C" />
@@ -25,38 +25,40 @@ export interface TextFieldProps {
     placeholderFontDecoration?: string
     placeholderColor?: string
     // Input Field Properties
-    fontSize?: number;
-    fontWeight?: string;
-    fontFamily?: string;
-    fontDecoration?: string;
-    color?: string;
+    type?: string
+    fontSize?: number
+    fontWeight?: string
+    fontFamily?: string
+    fontDecoration?: string
+    color?: string
+    multline?: number
     // Left Icon 
     leftIcon?: string
-    leftIconSize?: number;
-    leftIconColor?: string;
+    leftIconSize?: number
+    leftIconColor?: string
     // Right Icon
-    rightIcon?: string;
-    rightIconSize?: number;
-    rightIconColor?: string;
+    rightIcon?: string
+    rightIconSize?: number
+    rightIconColor?: string
     // Container
-    backgroundColor?: string;
-    backgroundOpacity?: string;
-    borderColor?: string;
-    borderWidth?: number;
-    borderRadius?: number;
-    borderType?: string;
-    boxShadow?: string;
+    backgroundColor?: string
+    backgroundOpacity?: string
+    borderColor?: string
+    borderWidth?: number
+    borderRadius?: number
+    borderType?: string
+    boxShadow?: string
     // Supporting Text Properties
-    supportingText?: string;
-    supportingTextFontSize?: number;
-    supportingTextFontWeight?: string;
-    supportingTextFontFamily?: string;
-    supportingTextFontDecoration?: string;
-    supportingTextColor?: string;
+    supportingText?: string
+    supportingTextFontSize?: number
+    supportingTextFontWeight?: string
+    supportingTextFontFamily?: string
+    supportingTextFontDecoration?: string
+    supportingTextColor?: string
     // Actions
-    onComplete?: () => void;
+    onComplete?: () => void
     // Status
-    isDisabled?: boolean;
+    isDisabled?: boolean
 }
 
 
@@ -65,12 +67,11 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
     const [isError, setError] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
     const [focusState, setFocusState] = useState(false);
-    var { label, labelFontSize, labelFontWeight, labelFontFamily, labelFontDecoration, labelColor, placeholder,
-        leftIcon, leftIconSize, leftIconColor, rightIcon, rightIconSize, rightIconColor, isDisabled,
+    var { type, label, labelFontSize, labelFontWeight, labelFontFamily, labelFontDecoration, labelColor, placeholder,
+        leftIcon, leftIconSize, leftIconColor, rightIcon, rightIconSize, rightIconColor, isDisabled, multline,
         supportingText, supportingTextFontSize, supportingTextFontWeight, supportingTextFontFamily, supportingTextFontDecoration, supportingTextColor,
     } = props;
 
-    console.log('labelFontSize', labelFontSize);
     // Label
     const LabelTextWidget = styled.label`
         display: flex;
@@ -85,17 +86,12 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
         color: ${labelColor ? labelColor : '#000000'};
     `;
 
-    // Input Container
-    const ContainerWidget = styled.div`
-        height: 56px;
-    `;
-
     // Left Icon Widget
     const LeftIconWidget = styled.div`
         position: absolute;
         left: 3%;
-        top: 50%;
-        transform: translate(-8%, -50%);
+        top: ${multline ? '20%' : '50%'};
+        transform: ${multline ? 'translate(-20%, -50%)' : 'translate(-8%, -50%)'};
         height: ${leftIconSize}px;
         width: ${leftIconSize}px;
         opacity: ${isDisabled ? 0.5 : 1};
@@ -109,8 +105,8 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
     const RightIconWidget = styled.div`
         position: absolute;
         right: 3%;
-        top: 50%;
-        transform: translate(-8%, -50%);
+        top: ${multline ? '20%' : '50%'};
+        transform: ${multline ? 'translate(-20%, -50%)' : 'translate(-8%, -50%)'};
         height: ${rightIconSize}px;
         width: ${rightIconSize}px;
         opacity: ${isDisabled ? 0.2 : 1};
@@ -134,26 +130,24 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
         color: ${supportingTextColor ? supportingTextColor : '#000000'};
     `;
 
-    // onFocusOutside of the input widget
-    function useOutsideAlerter(ref: any) {
-        useEffect(() => {
-            function handleClickOutside(event: any) {
-                if (ref.current && !ref.current.contains(event.target) && !isDisabled) {
-                    inputValidator(ref.current.value);
-                }
-
-                if (ref.current && ref.current.contains(event.target) && !isDisabled) {
+    useEffect(() => {
+        function handleClick(e: MouseEvent) {
+            if (!isDisabled) {
+                if (containerRef.current && containerRef.current.contains(e.target as Node) &&
+                    inputRef.current && inputRef.current !== e.target) {
+                    inputValidator(inputRef.current.value);
+                } else {
                     setFocusState(true);
                 }
             }
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside);
-            };
-        }, [ref]);
-    }
+        }
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, [isDisabled]);
 
-    const wrapperRef: React.MutableRefObject<null> = useRef(null);
+    const containerRef: React.MutableRefObject<null> = useRef(null);
+    const inputRef: React.MutableRefObject<null> = useRef(null);
+
 
     // Input validator
     const inputValidator = (value: any) => {
@@ -162,25 +156,32 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
         if (value === '') { setError(true); setSuccess(false); }
         else { setSuccess(true); setError(false); }
     }
-    useOutsideAlerter(wrapperRef);
 
     return (
-        <>
+        <div ref={containerRef}>
             <LabelTextWidget>{label}</LabelTextWidget>
-            <ContainerWidget style={{ position: 'relative', width: 'max-content', height: 'auto' }}>
+            <ContainerWidget variant={{ ...props, isSuccess, isError }}>
                 {leftIcon ? <LeftIconWidget dangerouslySetInnerHTML={{ __html: leftIcon }} /> : null}
-                <TextFieldWidget
-                    type="text"
-                    defaultValue={input}
-                    ref={wrapperRef}
-                    disabled={isDisabled}
-                    placeholder={placeholder}
-                    variant={{ ...props, isSuccess, isError }}
-                />
+                {multline ?
+                    <TextAreaWidget
+                        defaultValue={input}
+                        rows={multline}
+                        ref={inputRef}
+                        disabled={isDisabled}
+                        placeholder={placeholder}
+                        variant={{ ...props, isSuccess, isError }}
+                    /> : <TextFieldWidget
+                        type={type || "text"}
+                        defaultValue={input}
+                        ref={inputRef}
+                        disabled={isDisabled}
+                        placeholder={placeholder}
+                        variant={{ ...props, isSuccess, isError }}
+                    />}
                 {rightIcon ? <RightIconWidget dangerouslySetInnerHTML={{ __html: isSuccess ? SuccessIcon : isError ? ErrorIcon : rightIcon }} /> : null}
             </ContainerWidget >
             <SupportingTextWidget>{supportingText}</SupportingTextWidget>
-        </>
+        </div>
     );
 };
 
