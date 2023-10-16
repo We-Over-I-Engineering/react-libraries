@@ -133,11 +133,36 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
     useEffect(() => {
         function handleClick(e: MouseEvent) {
             if (!isDisabled) {
-                if (containerRef.current && containerRef.current.contains(e.target as Node) &&
+
+                // if the click is outside the input container,
+                // if it has input, then focus and validate
+                // if no input, then just go out of focus
+
+                if (containerRef.current && (containerRef.current as Element).contains(e.target as Node) &&
                     inputRef.current && inputRef.current !== e.target) {
-                    inputValidator(inputRef.current.value);
+
+                    if ((inputRef.current as HTMLInputElement).value) {
+                        inputValidator((inputRef.current as HTMLInputElement).value);
+
+                    } else {
+                        setFocusState(false)
+                    }
+
                 } else {
-                    setFocusState(true);
+
+
+                    if (containerRef.current && (containerRef.current as Element).contains(e.target as Node)) {
+                        setFocusState(true);
+                    } else {
+                        if (inputRef.current && !(inputRef.current as HTMLInputElement).value) {
+                            setFocusState(false);
+                            setError(false);
+                            setSuccess(false);
+                        }
+                        setFocusState(false);
+                    }
+
+
                 }
             }
         }
@@ -151,6 +176,7 @@ const WOITextField: React.FC<TextFieldProps> = (props) => {
 
     // Input validator
     const inputValidator = (value: any) => {
+
         setInput(value);
         setFocusState(false);
         if (value === '') { setError(true); setSuccess(false); }
