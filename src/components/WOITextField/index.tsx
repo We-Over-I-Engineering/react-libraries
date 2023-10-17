@@ -61,8 +61,7 @@ export interface TextFieldProps {
     isDisabled?: boolean
 }
 
-
-const WOITextField: React.FC<TextFieldProps> = (props) => {
+const WOITextField = (props: TextFieldProps) => {
     const [input, setInput] = useState('');
     const [isError, setError] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
