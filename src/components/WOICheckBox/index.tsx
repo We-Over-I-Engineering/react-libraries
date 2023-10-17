@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-interface WOISwitchButtonProps {
+export interface WOICheckBoxProps {
     size: number
     borderRadius?: number
     borderWidth?: number
@@ -14,7 +14,7 @@ interface WOISwitchButtonProps {
     isChecked: boolean
 }
 
-const WOICheckBox = (props: WOISwitchButtonProps) => {
+const WOICheckBox = (props: WOICheckBoxProps) => {
     const { size, borderRadius, borderWidth, activeBorderColor, inActiveBorderColor, activeBackgroundColor, inActiveBackgroundColor, icon, iconSize, isChecked } = props;
     const [toggled, setToggled] = useState(false);
 

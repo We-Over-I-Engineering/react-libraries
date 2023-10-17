@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from "styled-components";
 
-interface WOIRadioButtonProps {
+export interface WOIRadioButtonProps {
     size: number
     activeBorderColor?: string
     inActiveBorderColor?: string
