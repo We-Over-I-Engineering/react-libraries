@@ -6,7 +6,7 @@ We Over I button components are reusable React components for creating interacti
 
 - [We Over I Button Components](#we-over-i-button-components)
   - [Components](#components)
-  - [WOI Storybook](https://woi-react-storybook.netlify.app/)
+  - [WOI Storybook](#woi-storybook)
   - [**Getting Started**](#getting-started)
     - [WOI Text Button](#woi-text-button)
     - [**Usage**](#usage)
@@ -14,6 +14,8 @@ We Over I button components are reusable React components for creating interacti
     - [**Icon Button Usage**](#icon-button-usage)
     - [WOI Parallelogram Button](#woi-parallelogram-button)
     - [**Parallelogram Button Usage**](#parallelogram-button-usage)
+    - [WOI Radio Button](#woi-radio-button)
+    - [**Radio Button Usage**](#radio-button-usage)
 
 
 ## WOI Storybook 
@@ -22,7 +24,7 @@ We Over I button components are reusable React components for creating interacti
 ## **Getting Started**
 
 ```js
-import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-storybook/buttons"
+import {WOITextButton, WOIIconButton, WOIParallelogramButton} from "woi-react-storybook/components"
 ```
 
 ### WOI Text Button
@@ -60,7 +62,7 @@ WOI Text Button component accepts the following props:
 
 ### **Usage**
 ```js
-import {WOITextButton} from "woi-react-storybook/buttons";
+import {WOITextButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOITextButton
@@ -115,7 +117,7 @@ WOI Icon Button component accepts the following props:
 
 ### **Icon Button Usage**
 ```js
-import {WOIIconButton} from "woi-react-storybook/buttons";
+import {WOIIconButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOITextButton
@@ -170,7 +172,7 @@ WOI Parallelogram Button component accepts the following props:
 
 ### **Parallelogram Button Usage**
 ```js
-import {WOIParallelogramButton} from "woi-react-storybook/buttons";
+import {WOIParallelogramButton} from "woi-react-storybook/components";
 
 const textButtonWidget = () => {
     <WOIParallelogramButton
@@ -200,5 +202,39 @@ const textButtonWidget = () => {
         prefixIcon="https://cdn-icons-png.flaticon.com/512/271/271220.png"
         suffixIcon="https://cdn-icons-png.flaticon.com/512/32/32213.png"
     />
+};
+```
+### WOI Radio Button
+
+WOI Radio Button component accepts the following props:
+
+
+| Props               | Type     |
+| ------------------- | -------- |
+| size                | Number   |
+| borderWidth         | Number   |
+| activeBorderColor   | String   |
+| inActiveBorderColor | String   |
+| activeColor         | String   |
+| inActiveColor       | String   |
+| isSelected          | Boolean  |
+| OnClick             | Function |
+
+
+### **Radio Button Usage**
+
+```js
+import {WOIRadioButton} from "woi-react-storybook/components";
+
+const WOIRadioButtonWidget = () => {
+  <WOIRadioButton
+    size={24}
+    activeBorderColor="#33B8FF"
+    inActiveBorderColor= "#D3D3D3"
+    borderWidth={2}
+    activeColor="#33B8FF"
+    inActiveColor="#D3D3D3"
+    isSelected={false}
+  />;
 };
 ```

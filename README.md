@@ -20,6 +20,10 @@ $ npm install --save woi-react-storybook
 
 - 📒 [Components](#components)
   - [Buttons](https://github.com/We-Over-I-Engineering/react-libraries/blob/main/docs/Buttons.md): WOI Button components.
+  - [Checkbox](https://github.com/We-Over-I-Engineering/react-libraries/blob/main/docs/Checkbox.md): WOI Checkbox components.
+  - [Switch](https://github.com/We-Over-I-Engineering/react-libraries/blob/main/docs/Switch.md): WOI Switch components.
+  - [TextField](https://github.com/We-Over-I-Engineering/react-libraries/blob/main/docs/TextField.md): WOI TextField components.
+  - 
 - 👏 [Contributing](#contributing)
   - 👨‍💻 [Development scripts](#development-scripts)
 - :memo: [License](#license)
