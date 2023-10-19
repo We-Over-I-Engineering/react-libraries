@@ -31,7 +31,8 @@ export interface ButtonProps {
 
 const WOITextButton = (props: ButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, borderRadius, borderThickness, borderColor, textTransform, backgroundColor, hoverBackgroundColor, loading, loaderColor, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, isDisabled } = props
+    const { text = '', textColor = 'black', hoverTextColor, fontSize, fontWeight, width, height, borderRadius = 0, borderThickness = '0', borderColor = 'transparent', textTransform,
+        backgroundColor = 'transparent', hoverBackgroundColor, loading = false, loaderColor, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, gradientDirection = 'left', gradientColors, hoverGradientDirection, hoverGradientColors, isDisabled } = props
 
     // Created styled button widget
     const TextButtonWidget = styled.button`
@@ -52,10 +53,10 @@ const WOITextButton = (props: ButtonProps) => {
 
     // Button properties
     var buttonProperties = {
-        backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
+        backgroundColor: onHover ? (hoverBackgroundColor || backgroundColor) : backgroundColor,
         width, height,
         backgroundImage: onHover ?
-            `linear-gradient(to ${hoverGradientDirection}, ${hoverGradientColors?.join(', ')})`
+            `linear-gradient(to ${hoverGradientDirection || gradientDirection}, ${hoverGradientColors?.join(', ') || gradientColors?.join(', ')})`
             : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`
     }
 
@@ -86,7 +87,7 @@ const WOITextButton = (props: ButtonProps) => {
 
             {/* Loading Spinner + Text */}
             {loading ? <SpinnerWidget /> :
-                < p style={{ ...textProperties, color: onHover ? hoverTextColor : textColor, opacity: isDisabled ? 0.1 : 1 }}>{text}</p>}
+                < p style={{ ...textProperties, color: onHover ? (hoverTextColor || textColor) : textColor, opacity: isDisabled ? 0.1 : 1 }}>{text}</p>}
 
             {/* Suffix Icon */}
             {!loading && suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1 }} />}
