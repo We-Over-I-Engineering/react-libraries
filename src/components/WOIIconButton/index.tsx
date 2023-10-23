@@ -21,7 +21,8 @@ export interface IconButtonProps {
 
 const WOIIconButton = (props: IconButtonProps) => {
     const [onHover, setHoverState] = useState(false);
-    const { size, borderRadius, backgroundColor, hoverBackgroundColor, borderColor, borderThickness, loading, loaderColor, openLink, openLinkInNewTab, clickFunction, icon, iconColor, iconsSize, isDisabled } = props
+    const { size, borderRadius = 0, backgroundColor = 'transparent', hoverBackgroundColor, borderColor = 'transparent', borderThickness = '0', loading = false,
+        loaderColor = 'black', openLink, openLinkInNewTab = true, clickFunction, icon, iconColor, iconsSize, isDisabled = false } = props
 
     // Created styled button widget
     const IconButtonWidget = styled.button`
@@ -38,7 +39,7 @@ const WOIIconButton = (props: IconButtonProps) => {
         cursor: pointer;
     `;
 
-    var buttonProperties = { backgroundColor: onHover ? hoverBackgroundColor : backgroundColor, width: size, height: size } // Button properties
+    var buttonProperties = { backgroundColor: onHover ? (hoverBackgroundColor || backgroundColor) : backgroundColor, width: size, height: size } // Button properties
 
     var disabledButtonProperties = { backgroundColor: '#D9D9D9', cursor: 'not-allowed', width: size, height: size } // Disabled Button Properties
 

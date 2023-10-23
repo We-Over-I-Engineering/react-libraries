@@ -1,6 +1,6 @@
 {
   "name": "woi-react-storybook",
-  "version": "0.2.2",
+  "version": "0.2.32",
   "private": false,
   "main": "button.js",
   "types": "button.d.ts",

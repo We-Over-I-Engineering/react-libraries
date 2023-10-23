@@ -3,7 +3,7 @@ import WOIParallelogramButton from './dist/components/WOIParallelogramButton/ind
 import WOITextButton from './dist/components/WOITextButton/index';
 import WOICheckBox from './dist/components/WOICheckBox/index';
 import WOIRadioButton from './dist/components/WOIRadioButton/index';
-import WOISwitch from './dist/components/WOISwitchButton/index';
+import WOISwitchButton from './dist/components/WOISwitchButton/index';
 import WOITextField from './dist/components/WOITextField/index';
 
-export { WOIIconButton, WOIParallelogramButton, WOITextButton, WOICheckBox, WOIRadioButton, WOISwitch, WOITextField };
+export { WOIIconButton, WOIParallelogramButton, WOITextButton, WOICheckBox, WOIRadioButton, WOISwitchButton, WOITextField };
