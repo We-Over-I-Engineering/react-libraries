@@ -12,10 +12,11 @@ export interface WOICheckBoxProps {
     icon?: string
     iconSize?: number
     isChecked: boolean
+    clickFunction?: () => void
 }
 
 const WOICheckBox = (props: WOICheckBoxProps) => {
-    const { size, borderRadius, borderWidth, activeBorderColor, inActiveBorderColor, activeBackgroundColor, inActiveBackgroundColor, icon, iconSize, isChecked } = props;
+    const { size, borderRadius, borderWidth, activeBorderColor, inActiveBorderColor, activeBackgroundColor, inActiveBackgroundColor, icon, iconSize, isChecked, clickFunction } = props;
     const [toggled, setToggled] = useState(false);
 
     useEffect(() => {
@@ -33,11 +34,11 @@ const WOICheckBox = (props: WOICheckBoxProps) => {
         border-style: solid;
         border-width: ${borderWidth}px;
         border-radius: ${borderRadius}px;
-        border-color: ${toggled ? activeBorderColor : inActiveBorderColor};
+        border-color: ${toggled ? activeBorderColor ? activeBorderColor : (inActiveBorderColor || 'transparent') : inActiveBorderColor ? inActiveBorderColor : 'transparent'};
         background-color: ${toggled ? activeBackgroundColor : inActiveBackgroundColor};
     `;
 
-    const handleToggle = () => { console.log('clicked'); setToggled(!toggled); }
+    const handleToggle = () => { clickFunction ? clickFunction() : console.log('clicked'); setToggled(!toggled); }
 
     return (
         <CheckboxWidget onClick={handleToggle}>
