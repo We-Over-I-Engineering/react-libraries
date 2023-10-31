@@ -15,7 +15,8 @@ interface DropItemProps {
 
 export interface TopNavbarProps {
 
-    headerIcon?: string
+    headerLogo?: any
+    headerIconLink?: string
     headerLink?: string
     headerText?: string
     iconPosition?: string // left, right, center
@@ -85,7 +86,7 @@ const dropData = [
 
 const WOITopNavbar = (props: TopNavbarProps) => {
 
-    const { fontFamily, fontSize, fontWeight, borderRadius = 0, backgroundColor = 'white', borderColor = 'transparent', borderThickness = '0px', headerIcon, headerLink = '/', openLinkInNewTab, headerFunction, headerText = "magnifico", iconPosition = 'left', iconSize = 80, menuItems = dropData, textColor = 'black', hoverTextColor = '#2563EB', hoverUnderline = true } = props
+    const { headerLogo, fontFamily = 'Roboto', fontSize, fontWeight, borderRadius = 0, backgroundColor = 'white', borderColor = 'transparent', borderThickness = '0px', headerIconLink, headerLink = '/', openLinkInNewTab, headerFunction, headerText = "magnifico", iconPosition = 'left', iconSize = 80, menuItems = dropData, textColor = 'black', hoverTextColor = '#2563EB', hoverUnderline = true } = props
 
     const [onHover, setHoverState] = useState(false);
     const [menuHover, setMenuHover] = useState(0);
@@ -115,7 +116,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         border-color: ${borderColor};
         border-style: solid;
         border-width: ${borderThickness};
-        font-family: ${fontFamily ? fontFamily : 'Nunito Sans'};
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
         font-size: ${fontSize ? fontSize + 'px' : '16px'};
         font-style: normal;
         font-weight: ${fontWeight ? fontWeight : '400'};
@@ -129,12 +130,15 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         font-style: normal;
         font-weight: 700;
         line-height: 110%;
+        cursor: pointer;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const TopNavbarWidgetCenter = styled.div`
         display: flex;
         flex-direction: row;
         gap: 24px;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const TopNavbarWidgetRight = styled.div`
@@ -160,6 +164,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         padding-bottom: 3px;
         color: ${(props) => (props.index == menuActive) ? hoverTextColor : textColor};
         border-bottom: ${(props) => (hoverUnderline && props.index == menuHover) ? `3px solid ${hoverTextColor}` : '3px solid transparent'};
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
         `;
 
     const DropdownContainer = styled.div`
@@ -174,7 +179,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--0, 0px);
-        font-family: ${fontFamily ? fontFamily : 'Nunito Sans'};
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const DropItem = styled.div`
@@ -191,6 +196,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         font-style: normal;
         font-weight: 400;
         line-height: 125%;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const Dropdown = () => {
@@ -231,6 +237,18 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         setMenuHover(-1);
     }
 
+    const SVGComponent = (props: any) => {
+        // You can access the SVG passed as a prop using props.svg
+        const { svg } = props;
+
+        return (
+            <div>
+                {/* You can render the SVG using dangerouslySetInnerHTML */}
+                <div dangerouslySetInnerHTML={{ __html: svg }} />
+            </div>
+        );
+    };
+
     return (
         <TopNavbarWidget
             onMouseEnter={() => setHoverState(true)} // set hover state true and change button background
@@ -240,7 +258,10 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {(iconPosition == 'left' || iconPosition == '') && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : headerText ? <h1>{headerText}</h1> : headerLogo ? <div>
+                    {/* Pass the SVG content as a prop to SVGComponent */}
+                    <SVGComponent svg={headerLogo} />
+                </div> : null}
             </TopNavbarWidgetLeft>}
 
             {/* center */}
@@ -266,7 +287,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {iconPosition == 'center' && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
             </TopNavbarWidgetLeft>}
 
             {/* right */}
@@ -320,7 +341,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {iconPosition == 'right' && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
             </TopNavbarWidgetLeft>}
         </TopNavbarWidget>
     );
