@@ -9,10 +9,11 @@ export interface WOIRadioButtonProps {
     activeColor?: string
     inActiveColor?: string
     isSelected: boolean
+    clickFunction?: () => void
 }
 
 const WOIRadioButton = (props: WOIRadioButtonProps) => {
-    const { size, activeBorderColor, inActiveBorderColor, borderWidth, activeColor, inActiveColor, isSelected } = props;
+    const { size, activeBorderColor, inActiveBorderColor, borderWidth, activeColor, inActiveColor, isSelected, clickFunction } = props;
     const [toggled, setToggled] = useState(false);
 
     useEffect(() => {
@@ -26,20 +27,20 @@ const WOIRadioButton = (props: WOIRadioButtonProps) => {
         background-color: #FFFFFF;
         border-radius: 100%;
         padding: 3px;
-        border-color: ${toggled ? activeColor : inActiveColor};
+        border-color: ${toggled ? activeBorderColor ? activeBorderColor : 'transparent' : inActiveBorderColor ? inActiveBorderColor : 'transparent'};
         border-style: solid;
         border-width: ${borderWidth}px;
         cursor: pointer;
     `;
 
-    const handleToggle = () => setToggled(!toggled);
+    const handleToggle = () => { clickFunction ? clickFunction() : setToggled(!toggled) };
 
     const InnerWidget = styled.div`
         width: ${size - 4}px;
         height: ${size - 4}px;
-        background-color: ${toggled ? activeBorderColor : inActiveBorderColor};
+        background-color: ${toggled ? activeColor : inActiveColor};
         border-radius: 100%;
-        border-color: ${toggled ? activeColor : inActiveColor};
+        border-color: ${toggled ? activeBorderColor ? activeBorderColor : 'transparent' : inActiveBorderColor ? inActiveBorderColor : 'transparent'};
         border-style: solid;
         border-width: ${borderWidth}px;
         position: absolute;

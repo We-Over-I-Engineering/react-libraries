@@ -33,7 +33,8 @@ export interface ParallelogramButtonProps {
 const WOIParallelogramButton = (props: ParallelogramButtonProps) => {
     const [onHover, setHoverState] = useState(false);
     const [hoverIndex, setHoverIndex] = useState(-1);
-    const { text, textColor, hoverTextColor, fontSize, fontWeight, width, height, backgroundColor, hoverBackgroundColor, borderColor, borderThickness, loading, loaderColor, gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, textTransform, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, isDisabled, skewType, skew } = props;
+    const { text = '', textColor = 'black', hoverTextColor, fontSize, fontWeight, width, height, backgroundColor = 'transparent', hoverBackgroundColor, borderColor = 'transparent',
+        borderThickness = '0px', loading = false, loaderColor = 'black', gradientDirection, gradientColors, hoverGradientDirection, hoverGradientColors, textTransform, openLink, openLinkInNewTab, clickFunction, prefixIcon, suffixIcon, isDisabled = false, skewType = 'left', skew = '20' } = props;
 
     // Created styled button widget
     const ParallelogramButtonWidget = styled.button`
@@ -56,10 +57,10 @@ const WOIParallelogramButton = (props: ParallelogramButtonProps) => {
 
     // Button properties
     var buttonProperties = {
-        backgroundColor: onHover ? hoverBackgroundColor : backgroundColor,
+        backgroundColor: onHover ? (hoverBackgroundColor || backgroundColor) : backgroundColor,
         width, height,
         backgroundImage: onHover ?
-            `linear-gradient(to ${hoverGradientDirection}, ${hoverGradientColors?.join(', ')})`
+            `linear-gradient(to ${hoverGradientDirection || gradientDirection}, ${hoverGradientColors?.join(', ') || gradientColors?.join(', ')})`
             : `linear-gradient(to ${gradientDirection}, ${gradientColors?.join(', ')})`
     }
 
@@ -80,7 +81,7 @@ const WOIParallelogramButton = (props: ParallelogramButtonProps) => {
 
 
     return (
-        <ParallelogramButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties, backgroundColor: (onHover && hoverIndex === 0) ? hoverBackgroundColor : backgroundColor }}
+        <ParallelogramButtonWidget style={isDisabled ? { ...disabledButtonProperties } : { ...buttonProperties, backgroundColor: (onHover && hoverIndex === 0) ? (hoverBackgroundColor || backgroundColor) : backgroundColor }}
             onClick={() => isDisabled ? null : openLink ? window.open(openLink, openLinkInNewTab ? '_blank' : '_self') : clickFunction?.()} // click to open web pages or run function
             onMouseEnter={() => { setHoverIndex(0); setHoverState(true) }} // set hover state true and change button background
             onMouseLeave={() => { setHoverIndex(-1); setHoverState(false) }} // unset hover state and revert hover changes to default
@@ -91,7 +92,7 @@ const WOIParallelogramButton = (props: ParallelogramButtonProps) => {
 
             {/* Button Label */}
             {loading ? <SpinnerWidget style={{ transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} /> :
-                <p style={{ ...textProperties, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)`, color: (onHover && hoverIndex === 0) ? hoverTextColor : textColor }}>{text}</p>}
+                <p style={{ ...textProperties, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)`, color: (onHover && hoverIndex === 0) ? (hoverTextColor || textColor) : textColor }}>{text}</p>}
 
             {/* Button Suffix Icon */}
             {suffixIcon && <img src={suffixIcon} alt="suffixIcon" height={16} width={16} style={{ opacity: isDisabled ? 0.1 : 1, transform: `skew(${skewType === 'left' ? '-' : null}${skew}deg)` }} />}
