@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-// headerIcon?: string
+// headerIconLink?: string
 // headerLink?: string
 // headerText?: string
 // iconPosition?: string // left, right, center
@@ -28,9 +28,10 @@ export default {
 
 export const Default = {
     args: {
-        headerIcon: 'https://www.w3schools.com/howto/img_avatar.png',
+        headerLogo: `<svg width="100" height="100"><circle cx="50" cy="50" r="40" fill="red" /></svg>`,
+        headerIconLink: '',
         headerLink: 'https://www.google.com',
-        headerText: 'WOI Top Navbar',
+        headerText: 'magnifico',
         iconPosition: 'left',
         iconSize: 50,
         menuItems: [
@@ -61,6 +62,7 @@ export const Default = {
         hoverTextColor: '#2563EB',
         fontSize: 20,
         fontWeight: 400,
+        fontFamily: 'Roboto',
         borderRadius: 0,
         hoverUnderline: true,
         backgroundColor: '#ffffff',

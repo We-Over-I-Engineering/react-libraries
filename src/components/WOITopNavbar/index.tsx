@@ -15,7 +15,8 @@ interface DropItemProps {
 
 export interface TopNavbarProps {
 
-    headerIcon?: string
+    headerLogo?: any
+    headerIconLink?: string
     headerLink?: string
     headerText?: string
     iconPosition?: string // left, right, center
@@ -25,6 +26,7 @@ export interface TopNavbarProps {
     hoverTextColor?: string
     fontSize?: number
     fontWeight?: number
+    fontFamily?: string
     borderRadius?: number
     hoverUnderline?: boolean
     backgroundColor?: string
@@ -84,7 +86,7 @@ const dropData = [
 
 const WOITopNavbar = (props: TopNavbarProps) => {
 
-    const { borderRadius = 0, backgroundColor = 'white', borderColor = 'transparent', borderThickness = '0px', headerIcon, headerLink = '/', openLinkInNewTab, headerFunction, headerText = "magnifico", iconPosition = 'left', iconSize = 80, menuItems = dropData, textColor = 'black', hoverTextColor = '#2563EB', hoverUnderline = true } = props
+    const { headerLogo, fontFamily = 'Roboto', fontSize, fontWeight, borderRadius = 0, backgroundColor = 'white', borderColor = 'transparent', borderThickness = '0px', headerIconLink, headerLink = '/', openLinkInNewTab, headerFunction, headerText = "magnifico", iconPosition = 'left', iconSize = 80, menuItems = dropData, textColor = 'black', hoverTextColor = '#2563EB', hoverUnderline = true } = props
 
     const [onHover, setHoverState] = useState(false);
     const [menuHover, setMenuHover] = useState(0);
@@ -114,21 +116,29 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         border-color: ${borderColor};
         border-style: solid;
         border-width: ${borderThickness};
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
+        font-size: ${fontSize ? fontSize + 'px' : '16px'};
+        font-style: normal;
+        font-weight: ${fontWeight ? fontWeight : '400'};
+        line-height: normal;
+        color: ${textColor};
     `;
 
     const TopNavbarWidgetLeft = styled.div`
         color: var(--blue-gray-900, #0F172A);
-        font-family: Roboto;
         font-size: 32px;
         font-style: normal;
         font-weight: 700;
         line-height: 110%;
+        cursor: pointer;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const TopNavbarWidgetCenter = styled.div`
         display: flex;
         flex-direction: row;
         gap: 24px;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const TopNavbarWidgetRight = styled.div`
@@ -147,9 +157,15 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         position: relative;
     `;
 
-    const MenuText = styled.h2`
+    // style={{ borderBottom: `${(hoverUnderline && menuHover == index) ? `3px solid ${hoverTextColor}` : '3px solid transparent'}`, 
+    // color: `${(menuActive == index) ? hoverTextColor : textColor}` }}
+
+    const MenuText = styled.h2<{ index: any }>`
         padding-bottom: 3px;
-    `;
+        color: ${(props) => (props.index == menuActive) ? hoverTextColor : textColor};
+        border-bottom: ${(props) => (hoverUnderline && props.index == menuHover) ? `3px solid ${hoverTextColor}` : '3px solid transparent'};
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
+        `;
 
     const DropdownContainer = styled.div`
         position: absolute;
@@ -163,6 +179,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--0, 0px);
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const DropItem = styled.div`
@@ -175,36 +192,62 @@ const WOITopNavbar = (props: TopNavbarProps) => {
 
         color: var(--gray-500, var(--gray-500, #6B7280));
 
-        font-family: Inter;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: 125%;
+        font-family: ${fontFamily ? fontFamily : 'Roboto'};
     `;
 
     const Dropdown = () => {
         return (
-            <DropdownContainer>
-                {
-                    menuItems?.[menuHover]?.drop?.map((item, index) => {
-                        return (
-                            <DropItem key={index} onClick={() => window.open(item?.link, openLinkInNewTab ? '_blank' : '_self')} onMouseEnter={() => setDropHover(index)} style={{ color: `${(dropHover == index) ? hoverTextColor : textColor}` }}>
-                                <p>{pi_icon}</p>
-                                <p>{item?.name}</p>
-                            </DropItem>
-                        )
-                    })
-                }
-            </DropdownContainer>
+            <>
+                {menuItems?.[menuHover]?.drop &&
+                    <DropdownContainer>
+                        {
+                            menuItems?.[menuHover]?.drop?.map((item, index) => {
+                                return (
+                                    <DropItem key={index} onClick={() => window.open(item?.link, openLinkInNewTab ? '_blank' : '_self')} onMouseEnter={() => setDropHover(index)} style={{ color: `${(dropHover == index) ? hoverTextColor : textColor}` }}>
+                                        <p>{pi_icon}</p>
+                                        <p>{item?.name}</p>
+                                    </DropItem>
+                                )
+                            })
+                        }
+                    </DropdownContainer>}
+            </>
         )
     }
 
     const handleMenuClick = (item: any, index: any) => {
 
         setMenuActive(index);
-        setDropOpen(index);
         !item?.drop && window.open(item?.link, openLinkInNewTab ? '_blank' : '_self');
     }
+
+    const handleMenuHover = (index: any) => {
+
+        setDropOpen(index);
+        setMenuHover(index);
+    }
+
+    const handleMenuOut = () => {
+
+        setDropOpen(-1);
+        setMenuHover(-1);
+    }
+
+    const SVGComponent = (props: any) => {
+        // You can access the SVG passed as a prop using props.svg
+        const { svg } = props;
+
+        return (
+            <div>
+                {/* You can render the SVG using dangerouslySetInnerHTML */}
+                <div dangerouslySetInnerHTML={{ __html: svg }} />
+            </div>
+        );
+    };
 
     return (
         <TopNavbarWidget
@@ -215,17 +258,20 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {(iconPosition == 'left' || iconPosition == '') && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : headerText ? <h1>{headerText}</h1> : headerLogo ? <div>
+                    {/* Pass the SVG content as a prop to SVGComponent */}
+                    <SVGComponent svg={headerLogo} />
+                </div> : null}
             </TopNavbarWidgetLeft>}
 
             {/* center */}
-            <TopNavbarWidgetCenter>
+            <TopNavbarWidgetCenter onMouseLeave={handleMenuOut}>
                 {
                     menuItems?.map((item, index) => {
                         return (
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <MenuItem key={index} onMouseEnter={() => setMenuHover(index)} onClick={() => handleMenuClick(item, index)}>
-                                    <MenuText style={{ borderBottom: `${(hoverUnderline && menuHover == index) ? `3px solid ${hoverTextColor}` : '3px solid transparent'}`, color: `${(menuActive == index) ? hoverTextColor : textColor}` }}>{item.name}</MenuText>
+                            <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => handleMenuClick(item, index)} onMouseEnter={() => handleMenuHover(index)}>
+                                <MenuItem key={index}>
+                                    <MenuText index={index}>{item.name}</MenuText>
                                     {item.drop && <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill={`${(menuActive == index) ? hoverTextColor : textColor}`}>
                                         <path d="M12.5709 13.314L17.5209 8.364C17.6131 8.26849 17.7235 8.19231 17.8455 8.1399C17.9675 8.08749 18.0987 8.05991 18.2315 8.05875C18.3643 8.0576 18.496 8.0829 18.6189 8.13318C18.7417 8.18346 18.8534 8.25772 18.9473 8.35161C19.0412 8.4455 19.1154 8.55715 19.1657 8.68005C19.216 8.80295 19.2413 8.93463 19.2402 9.06741C19.239 9.20018 19.2114 9.3314 19.159 9.45341C19.1066 9.57541 19.0304 9.68576 18.9349 9.778L13.2779 15.435C13.0904 15.6225 12.8361 15.7278 12.5709 15.7278C12.3057 15.7278 12.0514 15.6225 11.8639 15.435L6.2069 9.778C6.11139 9.68576 6.03521 9.57541 5.9828 9.45341C5.93039 9.3314 5.9028 9.20018 5.90165 9.06741C5.9005 8.93463 5.9258 8.80295 5.97608 8.68005C6.02636 8.55715 6.10061 8.4455 6.1945 8.35161C6.2884 8.25772 6.40005 8.18346 6.52295 8.13318C6.64584 8.0829 6.77752 8.0576 6.9103 8.05875C7.04308 8.05991 7.1743 8.08749 7.2963 8.1399C7.41831 8.19231 7.52865 8.26849 7.6209 8.364L12.5709 13.314Z" fill={`${(menuActive == index) ? hoverTextColor : textColor}`} />
                                     </svg>}
@@ -241,7 +287,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {iconPosition == 'center' && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
             </TopNavbarWidgetLeft>}
 
             {/* right */}
@@ -295,7 +341,7 @@ const WOITopNavbar = (props: TopNavbarProps) => {
             {iconPosition == 'right' && <TopNavbarWidgetLeft
                 onClick={() => headerLink ? window.open(headerLink, openLinkInNewTab ? '_blank' : '_self') : headerFunction?.()} // click to open web pages or run function
             >
-                {headerIcon ? <img src={headerIcon} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
+                {headerIconLink ? <img src={headerIconLink} alt={headerText} height={iconSize} width={iconSize} /> : <h1>{headerText}</h1>}
             </TopNavbarWidgetLeft>}
         </TopNavbarWidget>
     );
