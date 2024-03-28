@@ -1,0 +1,30 @@
+# WOI Steppers Component
+
+WOI steppers component is a reusable React component for creating interactive steppers in your web application.
+
+## Props
+
+WOI steppers component accepts the following props:
+
+- `text` (string[]): The text propperty is an array of string that takes in the values for the step names and the number of steps are also determined by the lenght of this property.
+- `toggleBorder` (boolean): The toggleBorder property accepts a boolean and has a default value of true, setting the value to false will remove the border of the complete stepper container.
+- `containerBorderRadius` (string): The containerBorderRadius is a CSS property that adjusts the border radius of the container for the steppers. 
+- `containerBorderStyle` (string): The containerBorderStyle is a property that takes in CSS values for border style i.e.(solid , dotted , etc).
+- `containerBorderColor` (string): The containerBorderColor property take either a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color and adjusts the border color for the whole container.
+- `containerBackgroundColor` (string): The background color of the stepper container is adjusted using this property. The value it takes is either a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color. 
+- `icon` (string): The URL for the icon source. The URL is enclosed in string. 
+- `iconHeight` (string): Height of the icon that comes after the name of the step.The default icon is double arrow.The value can be passed in pixels , percentage , etc.
+- `iconWidth` (string): Width of the icon that comes after the name of the step. The default icon is double arrow. The value can be passed in pixels , percentage , etc.
+- `stepNameFontSize` (string): Font size of the text for name of the step i.e.(Personal Info , Account Info , etc).
+- `stepNameFontweight` (string): Font weight of the text for step name is ajusted using this property. The values can be either in pixels of default CSS values (normal , bold , etc).
+- `stepNameColor` (string): Color of the font in either a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color can be adjusted in this property.
+- `activeColor` (string): When the current step is active the color of the font changes to differentiate it from the other inactive text. The value can be accepted as a hex code or the name of the color. 
+- `numberFontSize` (string): Font size of the numbering for the steps is adjusted in this property. 
+- `numberColor` (string): Color of the number of step is adjusted in this property. The value can be a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
+- `numberFontWeight` (string): The weight of the text of step number is adjusted in this property. The value can be numerical or CSS value i.e.(normal , bold , etc).
+- `numberContainerWidth` (string): Width of the container for the number is adjusted through this property.
+- `numberContainerHeight` (string): Height of the container for the number is adjusted through this property.
+- `numberBorderStyle` (string): Style of the border for the number of steps is adjusted in this property. The values accpeted are pre defined CSS values i.e.(solid, dotted , etc).
+- `numberBorderColor` (string): Color of the border for the number is adjusted in this property. The value can either be either a Hex code (#RRGGBB), an RGB color (rgb(R, G, B)), or a named color.
+- `numberBorderRadius` (string): Border radius for the container of the number is adjusted in this property. The value can be in pixels or px. 
+- `currentStep` (number): This is for testing on storybook. The number passed in this prop is considered as the current step and is highlighted. 
